@@ -33,7 +33,7 @@
                 android:textColor="@color/colorPrimaryDark"
                 android:text=""/>
             <ProgressBar
-                android:id="@+id/pbCopia"
+                android:id="@+id/pbProgresoCopia"
                 android:layout_width="@dimen/margen_xlarge"
                 android:layout_height="@dimen/margen_xlarge"
                 android:visibility="gone"/>
