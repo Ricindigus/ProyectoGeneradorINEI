@@ -16,16 +16,16 @@
             android:layout_height="match_parent"
             android:gravity="center">
             <ImageView
-                android:layout_width="250dp"
+                android:layout_width="248dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:src="@drawable/logoinei"
                 />
             <TextView
-                android:id="@+id/txtTituloSplash"
+                android:id="@+id/tvTituloSplash"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="30sp"
+                android:textSize="32sp"
                 android:gravity="center"
                 android:textStyle="bold"
                 android:layout_marginRight="@dimen/margen_xlarge"
@@ -33,9 +33,9 @@
                 android:textColor="@color/colorPrimaryDark"
                 android:text=""/>
             <ProgressBar
-                android:id="@+id/progreso_copia"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+                android:id="@+id/pbCopia"
+                android:layout_width="@dimen/margen_xlarge"
+                android:layout_height="@dimen/margen_xlarge"
                 android:visibility="gone"/>
         </LinearLayout>
     </FrameLayout>

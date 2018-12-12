@@ -8,4 +8,10 @@
     <dimen name="margen_medium">16dp</dimen>
     <dimen name="margen_large">24dp</dimen>
     <dimen name="margen_xlarge">32dp</dimen>
+    <dimen name="padding_small">8dp</dimen>
+    <dimen name="padding_medium">16dp</dimen>
+    <dimen name="padding_large">24dp</dimen>
+    <dimen name="padding_xlarge">32dp</dimen>
+    <dimen name="altura_spinner_filtro">40dp</dimen>
+    <dimen name="altura_item_marco">56dp</dimen>
 </resources>
