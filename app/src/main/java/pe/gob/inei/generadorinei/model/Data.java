@@ -1,6 +1,7 @@
 package pe.gob.inei.generadorinei.model;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -131,4 +132,49 @@ public class Data {
 
         return sqLiteDatabase != null ? true : false;
     }
+
+    public Encuesta getEncuesta(){
+        Encuesta encuesta = new Encuesta();
+        String[] whereArgs = new String[]{"1"};
+        Cursor cursor = null;
+        try{
+            cursor = sqLiteDatabase.query(SQLConstantes.tablaencuestas,
+                    null,SQLConstantes.clausula_where_id,whereArgs,null,null,null);
+            if(cursor.getCount() == 1){
+                cursor.moveToFirst();
+                encuesta.setTipo(cursor.getString(cursor.getColumnIndex(SQLConstantes.encuestas_tipo)));
+                encuesta.setTitulo(cursor.getString(cursor.getColumnIndex(SQLConstantes.encuestas_titulo)));
+            }
+        }finally{
+            if(cursor != null) cursor.close();
+        }
+        return encuesta;
+    }
+
+
+    public Usuario getUsuario(String idUsuario){
+        Usuario usuario = new Usuario();
+        String[] whereArgs = new String[]{idUsuario};
+        Cursor cursor = null;
+        try{
+            cursor = sqLiteDatabase.query(SQLConstantes.tablausuarios,
+                    null,SQLConstantes.clausula_where_id,whereArgs,null,null,null);
+            if(cursor.getCount() == 1){
+                cursor.moveToFirst();
+                usuario.set_id(cursor.getString(cursor.getColumnIndex(SQLConstantes.usuario_id)));
+                usuario.setDni(cursor.getString(cursor.getColumnIndex(SQLConstantes.usuario_dni)));
+                usuario.setNombre(cursor.getString(cursor.getColumnIndex(SQLConstantes.usuario_nombre)));
+                usuario.setClave(cursor.getString(cursor.getColumnIndex(SQLConstantes.usuario_clave)));
+                usuario.setCargo_id(cursor.getString(cursor.getColumnIndex(SQLConstantes.usuario_cargo_id)));
+                usuario.setCoordinador_id(cursor.getString(cursor.getColumnIndex(SQLConstantes.usuario_coordinador_id)));
+                usuario.setSupervisor_id(cursor.getString(cursor.getColumnIndex(SQLConstantes.usuario_supervisor_id)));
+            }
+        }finally{
+            if(cursor != null) cursor.close();
+        }
+        return usuario;
+    }
+
+
+
 }
