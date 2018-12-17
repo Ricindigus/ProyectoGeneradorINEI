@@ -176,5 +176,53 @@ public class Data {
     }
 
 
+    public Marco getMarco(String idMarco){
+        Marco marco = new Marco();
+        String[] whereArgs = new String[]{idMarco};
+        Cursor cursor = null;
+        try{
+            cursor = sqLiteDatabase.query(SQLConstantes.tablamarco,
+                    null,SQLConstantes.clausula_where_id,whereArgs,null,null,null);
+            if(cursor.getCount() == 1){
+                cursor.moveToFirst();
+                marco.set_id(cursor.getString(cursor.getColumnIndex(SQLConstantes.marco_id)));
+                marco.setAnio(cursor.getString(cursor.getColumnIndex(SQLConstantes.marco_anio)));
+                marco.setMes(cursor.getString(cursor.getColumnIndex(SQLConstantes.marco_mes)));
+                marco.setPeriodo(cursor.getString(cursor.getColumnIndex(SQLConstantes.marco_periodo)));
+                marco.setZona(cursor.getString(cursor.getColumnIndex(SQLConstantes.marco_zona)));
+                marco.setConglomerado(cursor.getString(cursor.getColumnIndex(SQLConstantes.marco_conglomerado)));
+                marco.setCcdd(cursor.getString(cursor.getColumnIndex(SQLConstantes.marco_ccdd)));
+                marco.setDepartamento(cursor.getString(cursor.getColumnIndex(SQLConstantes.marco_departamento)));
+                marco.setCcpp(cursor.getString(cursor.getColumnIndex(SQLConstantes.marco_ccpp)));
+                marco.setProvincia(cursor.getString(cursor.getColumnIndex(SQLConstantes.marco_id)));
+                marco.setCcdi(cursor.getString(cursor.getColumnIndex(SQLConstantes.marco_id)));
+                marco.setDistrito(cursor.getString(cursor.getColumnIndex(SQLConstantes.marco_id)));
+                marco.setCodccpp(cursor.getString(cursor.getColumnIndex(SQLConstantes.marco_id)));
+                marco.setNomccpp(cursor.getString(cursor.getColumnIndex(SQLConstantes.marco_id)));
+                marco.setRuc(cursor.getString(cursor.getColumnIndex(SQLConstantes.marco_id)));
+                marco.setRazon_social(cursor.getString(cursor.getColumnIndex(SQLConstantes.marco_id)));
+                marco.setNombre_comercial(cursor.getString(cursor.getColumnIndex(SQLConstantes.marco_id)));
+                marco.setTipo_empresa(cursor.getString(cursor.getColumnIndex(SQLConstantes.marco_id)));
+                marco.setEncuestador(cursor.getString(cursor.getColumnIndex(SQLConstantes.marco_id)));
+                marco.setSupervisor(cursor.getString(cursor.getColumnIndex(SQLConstantes.marco_id)));
+                marco.setCoordinador(cursor.getString(cursor.getColumnIndex(SQLConstantes.marco_id)));
+                marco.setFrente(cursor.getString(cursor.getColumnIndex(SQLConstantes.marco_id)));
+                marco.setNumero_orden(cursor.getString(cursor.getColumnIndex(SQLConstantes.marco_id)));
+                marco.setManzana_id(cursor.getString(cursor.getColumnIndex(SQLConstantes.marco_id)));
+                marco.setTipo_via(cursor.getString(cursor.getColumnIndex(SQLConstantes.marco_id)));
+                marco.setNombre_via(cursor.getString(cursor.getColumnIndex(SQLConstantes.marco_id)));
+                marco.setPuerta(cursor.getString(cursor.getColumnIndex(SQLConstantes.marco_id)));
+                marco.setLote(cursor.getString(cursor.getColumnIndex(SQLConstantes.marco_id)));
+                marco.setPiso(cursor.getString(cursor.getColumnIndex(SQLConstantes.marco_id)));
+                marco.setManzana(cursor.getString(cursor.getColumnIndex(SQLConstantes.marco_id)));
+                marco.setBlock(cursor.getString(cursor.getColumnIndex(SQLConstantes.marco_id)));
+                marco.setInterior(cursor.getString(cursor.getColumnIndex(SQLConstantes.marco_id)));
+                marco.setEstado(cursor.getString(cursor.getColumnIndex(SQLConstantes.marco_id)));
+            }
+        }finally{
+            if(cursor != null) cursor.close();
+        }
+        return marco;
+    }
 
 }
