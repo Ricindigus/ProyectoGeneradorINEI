@@ -89,8 +89,13 @@ public class SQLConstantes {
     public static final String marco_estado = "estado";
 
 
-    public static final String tablacamposmarco = "marco";
-    public static final String tablafiltrosmarco = "marco";
+    public static final String tablacamposmarco = "campos_marco";
+
+    public static final String campos_marco_id = "_id";
+
+
+
+    public static final String tablafiltrosmarco = "filtros_marco";
 
 
     public static final String tablamodulos = "modulos";
