@@ -103,7 +103,7 @@ public class MarcoAdapter extends RecyclerView.Adapter<MarcoAdapter.ItemMarcoHol
         }
 
         private void configurarVistaCampo(CamposMarco camposMarco, TextView textView) {
-            if (camposMarco.getVariable1().equals("")) textView.setVisibility(View.GONE);
+            if (camposMarco.getVar1().equals("")) textView.setVisibility(View.GONE);
             else setPesoLayout(textView,Integer.parseInt(camposMarco.getPeso1()));
         }
 

@@ -134,6 +134,7 @@ public class Data {
     }
 
     public Encuesta getEncuesta(){
+        open();
         Encuesta encuesta = new Encuesta();
         String[] whereArgs = new String[]{"1"};
         Cursor cursor = null;
@@ -148,11 +149,13 @@ public class Data {
         }finally{
             if(cursor != null) cursor.close();
         }
+        close();
         return encuesta;
     }
 
 
     public Usuario getUsuario(String idUsuario){
+        open();
         Usuario usuario = new Usuario();
         String[] whereArgs = new String[]{idUsuario};
         Cursor cursor = null;
@@ -172,11 +175,13 @@ public class Data {
         }finally{
             if(cursor != null) cursor.close();
         }
+        close();
         return usuario;
     }
 
 
     public Marco getMarco(String idMarco){
+        open();
         Marco marco = new Marco();
         String[] whereArgs = new String[]{idMarco};
         Cursor cursor = null;
@@ -222,7 +227,74 @@ public class Data {
         }finally{
             if(cursor != null) cursor.close();
         }
+        close();
         return marco;
     }
 
+    public CamposMarco getCamposMarco(){
+        open();
+        CamposMarco camposMarco = new CamposMarco();
+        String[] whereArgs = new String[]{"1"};
+        Cursor cursor = null;
+        try{
+            cursor = sqLiteDatabase.query(SQLConstantes.tablacamposmarco,
+                    null,SQLConstantes.clausula_where_id,whereArgs,null,null,null);
+            if(cursor.getCount() == 1){
+                cursor.moveToFirst();
+                camposMarco.set_id(cursor.getString(cursor.getColumnIndex(SQLConstantes.marco_id)));
+                camposMarco.setNombre1(cursor.getString(cursor.getColumnIndex(SQLConstantes.campos_marco_nombre1)));
+                camposMarco.setNombre2(cursor.getString(cursor.getColumnIndex(SQLConstantes.campos_marco_nombre2)));
+                camposMarco.setNombre3(cursor.getString(cursor.getColumnIndex(SQLConstantes.campos_marco_nombre3)));
+                camposMarco.setNombre4(cursor.getString(cursor.getColumnIndex(SQLConstantes.campos_marco_nombre4)));
+                camposMarco.setNombre5(cursor.getString(cursor.getColumnIndex(SQLConstantes.campos_marco_nombre5)));
+                camposMarco.setNombre6(cursor.getString(cursor.getColumnIndex(SQLConstantes.campos_marco_nombre6)));
+                camposMarco.setNombre7(cursor.getString(cursor.getColumnIndex(SQLConstantes.campos_marco_nombre7)));
+                camposMarco.setPeso1(cursor.getString(cursor.getColumnIndex(SQLConstantes.campos_marco_peso1)));
+                camposMarco.setPeso2(cursor.getString(cursor.getColumnIndex(SQLConstantes.campos_marco_peso2)));
+                camposMarco.setPeso3(cursor.getString(cursor.getColumnIndex(SQLConstantes.campos_marco_peso3)));
+                camposMarco.setPeso4(cursor.getString(cursor.getColumnIndex(SQLConstantes.campos_marco_peso4)));
+                camposMarco.setPeso5(cursor.getString(cursor.getColumnIndex(SQLConstantes.campos_marco_peso5)));
+                camposMarco.setPeso6(cursor.getString(cursor.getColumnIndex(SQLConstantes.campos_marco_peso6)));
+                camposMarco.setPeso7(cursor.getString(cursor.getColumnIndex(SQLConstantes.campos_marco_peso7)));
+                camposMarco.setVar1(cursor.getString(cursor.getColumnIndex(SQLConstantes.campos_marco_var1)));
+                camposMarco.setVar2(cursor.getString(cursor.getColumnIndex(SQLConstantes.campos_marco_var2)));
+                camposMarco.setVar3(cursor.getString(cursor.getColumnIndex(SQLConstantes.campos_marco_var3)));
+                camposMarco.setVar4(cursor.getString(cursor.getColumnIndex(SQLConstantes.campos_marco_var4)));
+                camposMarco.setVar5(cursor.getString(cursor.getColumnIndex(SQLConstantes.campos_marco_var5)));
+                camposMarco.setVar6(cursor.getString(cursor.getColumnIndex(SQLConstantes.campos_marco_var6)));
+                camposMarco.setVar7(cursor.getString(cursor.getColumnIndex(SQLConstantes.campos_marco_var7)));
+            }
+        }finally{
+            if(cursor != null) cursor.close();
+        }
+        close();
+        return camposMarco;
+    }
+
+    public FiltrosMarco getFiltrosMarco(){
+        open();
+        FiltrosMarco filtrosMarco = new FiltrosMarco();
+        String[] whereArgs = new String[]{"1"};
+        Cursor cursor = null;
+        try{
+            cursor = sqLiteDatabase.query(SQLConstantes.tablafiltrosmarco,
+                    null,SQLConstantes.clausula_where_id,whereArgs,null,null,null);
+            if(cursor.getCount() == 1){
+                cursor.moveToFirst();
+                filtrosMarco.set_id(cursor.getString(cursor.getColumnIndex(SQLConstantes.filtros_marco_id)));
+                filtrosMarco.setFiltro1(cursor.getString(cursor.getColumnIndex(SQLConstantes.filtros_marco_filtro1)));
+                filtrosMarco.setFiltro2(cursor.getString(cursor.getColumnIndex(SQLConstantes.filtros_marco_filtro2)));
+                filtrosMarco.setFiltro3(cursor.getString(cursor.getColumnIndex(SQLConstantes.filtros_marco_filtro3)));
+                filtrosMarco.setFiltro4(cursor.getString(cursor.getColumnIndex(SQLConstantes.filtros_marco_filtro4)));
+                filtrosMarco.setNombre1(cursor.getString(cursor.getColumnIndex(SQLConstantes.filtros_marco_nombre1)));
+                filtrosMarco.setNombre2(cursor.getString(cursor.getColumnIndex(SQLConstantes.filtros_marco_nombre2)));
+                filtrosMarco.setNombre3(cursor.getString(cursor.getColumnIndex(SQLConstantes.filtros_marco_nombre3)));
+                filtrosMarco.setNombre4(cursor.getString(cursor.getColumnIndex(SQLConstantes.filtros_marco_nombre4)));
+            }
+        }finally{
+            if(cursor != null) cursor.close();
+        }
+        close();
+        return filtrosMarco;
+    }
 }

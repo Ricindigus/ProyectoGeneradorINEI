@@ -24,43 +24,34 @@ import pe.gob.inei.generadorinei.model.Usuario;
 public class LoginActivity extends AppCompatActivity {
 
     private TextView tvTituloEncuesta;
-    private TextInputEditText tvUsuario;
-    private TextInputEditText tvPassword;
+    private TextInputEditText edtUsuario;
+    private TextInputEditText edtPassword;
     private Button btnIngresar;
     private LinearLayout lytPrincipal;
-//    private DataComponentes dataComponentes;
     private String tituloEncuesta;
+    private Data data;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        tvTituloEncuesta = (TextView) findViewById(R.id.login_tvTituloEncuesta);
-        tvUsuario = (TextInputEditText) findViewById(R.id.login_etUsuario);
-        tvPassword = (TextInputEditText) findViewById(R.id.login_etPassword);
-        btnIngresar = (Button) findViewById(R.id.login_btIngresar);
-        Data data = new Data(this);
-        data.open();
-        Encuesta encuesta = data.getEncuesta();
-        tituloEncuesta = encuesta.getTitulo();
-        tvTituloEncuesta.setText(tituloEncuesta);
-        tvUsuario.setFilters(new InputFilter[]{new InputFilter.AllCaps(),new InputFilter.LengthFilter(10)});
-        tvPassword.setFilters(new InputFilter[]{new InputFilter.AllCaps(),new InputFilter.LengthFilter(10)});
+        data = new Data(this);
+        conectarvistas();
+        setearTituloEncuesta();
+        configurarInputs();
 
-        tvUsuario.setText("OPER01");
-        tvPassword.setText("123456");
+
+        edtUsuario.setText("OPER01");
+        edtPassword.setText("123456");
 
         btnIngresar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(validarCampos() == true){
                     Usuario usuario = new Usuario();
-                    Data data = new Data(LoginActivity.this);
-                    data.open();
-                    usuario = data.getUsuario(tvUsuario.getText().toString());
-                    data.close();
-                    if(usuario.getClave().equals(tvPassword.getText().toString())){
+                    usuario = data.getUsuario(edtUsuario.getText().toString());
+                    if(usuario.getClave().equals(edtPassword.getText().toString())){
                         Intent intent = new Intent(getApplicationContext(),MarcoActivity.class);
                         intent.putExtra("idUsuario",usuario.get_id());
                         intent.putExtra("permisoUsuario",usuario.getCargo_id());
@@ -77,23 +68,43 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        lytPrincipal = (LinearLayout) findViewById(R.id.login_layout);
-        lytPrincipal.requestFocus();
+
+
+
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//        lytPrincipal = (LinearLayout) findViewById(R.id.login_layout);
+//        lytPrincipal.requestFocus();
+//    }
+//
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        lytPrincipal = (LinearLayout) findViewById(R.id.login_layout);
+//        lytPrincipal.requestFocus();
+//    }
+
+
+    private void conectarvistas(){
+        tvTituloEncuesta = findViewById(R.id.login_tvTituloEncuesta);
+        edtUsuario = findViewById(R.id.login_edtUsuario);
+        edtPassword = findViewById(R.id.login_edtPassword);
+        btnIngresar = findViewById(R.id.login_btIngresar);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        lytPrincipal = (LinearLayout) findViewById(R.id.login_layout);
-        lytPrincipal.requestFocus();
+    private void setearTituloEncuesta() {
+        Encuesta encuesta = data.getEncuesta();
+        tituloEncuesta = encuesta.getTitulo();
+        tvTituloEncuesta.setText(tituloEncuesta);
     }
-
-    public boolean validarCampos(){
+    private void configurarInputs() {
+        edtUsuario.setFilters(new InputFilter[]{new InputFilter.AllCaps(),new InputFilter.LengthFilter(10)});
+        edtPassword.setFilters(new InputFilter[]{new InputFilter.AllCaps(),new InputFilter.LengthFilter(10)});
+    }
+    private boolean validarCampos(){
         boolean valido = true;
-        if(tvUsuario.getText().toString().equals("") || tvPassword.getText().toString().equals("")) valido = false;
+        if(edtUsuario.getText().toString().equals("") || edtPassword.getText().toString().equals("")) valido = false;
         return valido;
     }
 

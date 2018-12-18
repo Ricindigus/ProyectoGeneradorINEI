@@ -92,17 +92,94 @@ public class SQLConstantes {
     public static final String tablacamposmarco = "campos_marco";
 
     public static final String campos_marco_id = "_id";
-
+    public static final String campos_marco_var1 = "var1";
+    public static final String campos_marco_var2 = "var2";
+    public static final String campos_marco_var3 = "var3";
+    public static final String campos_marco_var4 = "var4";
+    public static final String campos_marco_var5 = "var5";
+    public static final String campos_marco_var6 = "var6";
+    public static final String campos_marco_var7 = "var7";
+    public static final String campos_marco_peso1 = "peso1";
+    public static final String campos_marco_peso2 = "peso2";
+    public static final String campos_marco_peso3 = "peso3";
+    public static final String campos_marco_peso4 = "peso4";
+    public static final String campos_marco_peso5 = "peso5";
+    public static final String campos_marco_peso6 = "peso6";
+    public static final String campos_marco_peso7 = "peso7";
+    public static final String campos_marco_nombre1 = "nombre1";
+    public static final String campos_marco_nombre2 = "nombre2";
+    public static final String campos_marco_nombre3 = "nombre3";
+    public static final String campos_marco_nombre4 = "nombre4";
+    public static final String campos_marco_nombre5 = "nombre5";
+    public static final String campos_marco_nombre6 = "nombre6";
+    public static final String campos_marco_nombre7 = "nombre7";
 
 
     public static final String tablafiltrosmarco = "filtros_marco";
 
+    public static final String filtros_marco_id = "_id";
+    public static final String filtros_marco_filtro1 = "filtro1";
+    public static final String filtros_marco_filtro2 = "filtro2";
+    public static final String filtros_marco_filtro3 = "filtro3";
+    public static final String filtros_marco_filtro4 = "filtro4";
+    public static final String filtros_marco_nombre1 = "nombre1";
+    public static final String filtros_marco_nombre2 = "nombre2";
+    public static final String filtros_marco_nombre3 = "nombre3";
+    public static final String filtros_marco_nombre4 = "nombre4";
+
+
+
+
+
 
     public static final String tablamodulos = "modulos";
+
+    public static final String modulos_id = "_id";
+    public static final String modulos_titulo = "titulo";
+    public static final String modulos_cabecera = "cabecera";
+    public static final String modulos_tipo_encuesta = "tipo_encuesta";
+
+
+
     public static final String tablapaginas = "paginas";
+
+    public static final String paginas_id = "_id";
+    public static final String paginas_numero = "numero";
+    public static final String paginas_modulo = "modulo";
+    public static final String paginas_tipo_encuesta = "tipo_encuesta";
+
+
     public static final String tablapreguntas = "preguntas";
+
+    public static final String preguntas_id = "_id";
+    public static final String preguntas_modulo = "modulo";
+    public static final String preguntas_pagina = "pagina";
+    public static final String preguntas_numero = "numero";
+    public static final String preguntas_tipo = "tipo";
+
+
     public static final String tablavariables = "variables";
+
+    public static final String variables_id = "_id";
+    public static final String variables_id_tabla = "id_tabla";
+    public static final String variables_id_modulo = "id_modulo";
+    public static final String variables_id_pagina = "id_pagina";
+    public static final String variables_id_pregunta = "id_pregunta";
+
+
     public static final String tablaeventos = "eventos";
+
+    public static final String eventos_id = "_id";
+    public static final String eventos_idpag1 = "idpag1";
+    public static final String eventos_idpreg1 = "idpreg1";
+    public static final String eventos_idvar = "idvar";
+    public static final String eventos_valor = "valor";
+    public static final String eventos_idpag2 = "idpag2";
+    public static final String eventos_idpreg2 = "idpreg2";
+    public static final String eventos_accion = "accion";
+
+
+
 
 
 

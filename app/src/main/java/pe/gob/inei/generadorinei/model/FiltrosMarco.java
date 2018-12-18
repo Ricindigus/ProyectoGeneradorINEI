@@ -1,16 +1,26 @@
 package pe.gob.inei.generadorinei.model;
 
 public class FiltrosMarco {
+    private String _id;
+    private String filtro1;
+    private String filtro2;
+    private String filtro3;
+    private String filtro4;
     private String nombre1;
     private String nombre2;
     private String nombre3;
     private String nombre4;
-    private String variable1;
-    private String variable2;
-    private String variable3;
-    private String variable4;
+
 
     public FiltrosMarco() {
+    }
+
+    public String get_id() {
+        return _id;
+    }
+
+    public void set_id(String _id) {
+        this._id = _id;
     }
 
     public String getNombre1() {
@@ -45,35 +55,35 @@ public class FiltrosMarco {
         this.nombre4 = nombre4;
     }
 
-    public String getVariable1() {
-        return variable1;
+    public String getFiltro1() {
+        return filtro1;
     }
 
-    public void setVariable1(String variable1) {
-        this.variable1 = variable1;
+    public void setFiltro1(String filtro1) {
+        this.filtro1 = filtro1;
     }
 
-    public String getVariable2() {
-        return variable2;
+    public String getFiltro2() {
+        return filtro2;
     }
 
-    public void setVariable2(String variable2) {
-        this.variable2 = variable2;
+    public void setFiltro2(String filtro2) {
+        this.filtro2 = filtro2;
     }
 
-    public String getVariable3() {
-        return variable3;
+    public String getFiltro3() {
+        return filtro3;
     }
 
-    public void setVariable3(String variable3) {
-        this.variable3 = variable3;
+    public void setFiltro3(String filtro3) {
+        this.filtro3 = filtro3;
     }
 
-    public String getVariable4() {
-        return variable4;
+    public String getFiltro4() {
+        return filtro4;
     }
 
-    public void setVariable4(String variable4) {
-        this.variable4 = variable4;
+    public void setFiltro4(String filtro4) {
+        this.filtro4 = filtro4;
     }
 }

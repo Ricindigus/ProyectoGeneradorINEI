@@ -1,13 +1,14 @@
 package pe.gob.inei.generadorinei.model;
 
 public class CamposMarco {
-    private String variable1;
-    private String variable2;
-    private String variable3;
-    private String variable4;
-    private String variable5;
-    private String variable6;
-    private String variable7;
+    private String _id;
+    private String var1;
+    private String var2;
+    private String var3;
+    private String var4;
+    private String var5;
+    private String var6;
+    private String var7;
     private String nombre1;
     private String nombre2;
     private String nombre3;
@@ -26,60 +27,68 @@ public class CamposMarco {
     public CamposMarco() {
     }
 
-    public String getVariable1() {
-        return variable1;
+    public String get_id() {
+        return _id;
     }
 
-    public void setVariable1(String variable1) {
-        this.variable1 = variable1;
+    public void set_id(String _id) {
+        this._id = _id;
     }
 
-    public String getVariable2() {
-        return variable2;
+    public String getVar1() {
+        return var1;
     }
 
-    public void setVariable2(String variable2) {
-        this.variable2 = variable2;
+    public void setVar1(String var1) {
+        this.var1 = var1;
     }
 
-    public String getVariable3() {
-        return variable3;
+    public String getVar2() {
+        return var2;
     }
 
-    public void setVariable3(String variable3) {
-        this.variable3 = variable3;
+    public void setVar2(String var2) {
+        this.var2 = var2;
     }
 
-    public String getVariable4() {
-        return variable4;
+    public String getVar3() {
+        return var3;
     }
 
-    public void setVariable4(String variable4) {
-        this.variable4 = variable4;
+    public void setVar3(String var3) {
+        this.var3 = var3;
     }
 
-    public String getVariable5() {
-        return variable5;
+    public String getVar4() {
+        return var4;
     }
 
-    public void setVariable5(String variable5) {
-        this.variable5 = variable5;
+    public void setVar4(String var4) {
+        this.var4 = var4;
     }
 
-    public String getVariable6() {
-        return variable6;
+    public String getVar5() {
+        return var5;
     }
 
-    public void setVariable6(String variable6) {
-        this.variable6 = variable6;
+    public void setVar5(String var5) {
+        this.var5 = var5;
     }
 
-    public String getVariable7() {
-        return variable7;
+    public String getVar6() {
+        return var6;
     }
 
-    public void setVariable7(String variable7) {
-        this.variable7 = variable7;
+    public void setVar6(String var6) {
+        this.var6 = var6;
+    }
+
+    public String getVar7() {
+        return var7;
+    }
+
+    public void setVar7(String var7) {
+        this.var7 = var7;
     }
 
     public String getNombre1() {
