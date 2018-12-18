@@ -196,6 +196,155 @@ public class SQLConstantes {
 
 
 
+    /**Inicio Tablas Componentes **/
+    public static final String tablacheckbox = "c_checkbox";
+    /**InicioCampos**/
+    public static final String checkbox_id = "_id";
+    public static final String checkbox_modulo = "modulo";
+    public static final String checkbox_numero = "numero";
+    public static final String checkbox_pregunta = "pregunta";
+    public static final String checkbox_id_tabla = "id_tabla";
+
+    /**Fin Campos**/
+    public static final String tablaedittext = "c_edittext";
+    /**InicioCampos**/
+    public static final String edittext_id = "_id";
+    public static final String edittext_modulo = "modulo";
+    public static final String edittext_numero = "numero";
+    public static final String edittext_pregunta = "pregunta";
+    public static final String edittext_id_tabla = "id_tabla";
+    /**Fin Campos**/
+    public static final String tablaformulario = "c_formulario";
+    /**InicioCampos**/
+    public static final String formulario_id = "_id";
+    public static final String formulario_id_modulo = "id_modulo";
+    public static final String formulario_id_numero = "id_numero";
+    public static final String formulario_titulo = "titulo";
+    public static final String formulario_id_tabla = "id_tabla";
+    /**Fin Campos**/
+    public static final String tablagps = "c_gps";
+    /**InicioCampos**/
+    public static final String gps_id = "_id";
+    public static final String gps_modulo = "modulo";
+    public static final String gps_numero = "numero";
+    public static final String gps_var_lat = "var_lat";
+    public static final String gps_var_long = "var_long";
+    public static final String gps_var_alt = "var_alt";
+    public static final String gps_id_tabla = "id_tabla";
+    /**Fin Campos**/
+    public static final String tablaradio = "c_radio";
+    /**InicioCampos**/
+    public static final String radio_id = "_id";
+    public static final String radio_modulo = "modulo";
+    public static final String radio_numero = "numero";
+    public static final String radio_pregunta = "pregunta";
+    public static final String radio_id_tabla = "id_tabla";
+    /**Fin Campos**/
+    public static final String tablaspcheckbox = "c_sp_checkbox";
+    /**InicioCampos**/
+    public static final String sp_checkbox_id = "_id";
+    public static final String sp_checkbox_id_pregunta = "id_pregunta";
+    public static final String sp_checkbox_subpregunta = "subpregunta";
+    public static final String sp_checkbox_var_guardado = "var_guardado";
+    public static final String sp_checkbox_var_especifique = "var_especifique";
+    public static final String sp_checkbox_deshabilita = "deshabilita";
+    /**Fin Campos**/
+    public static final String tablaspedittext = "c_sp_edittext";
+    /**InicioCampos**/
+    public static final String sp_edittext_id = "_id";
+    public static final String sp_edittex_id_pregunta = "id_pregunta";
+    public static final String sp_edittex_subpregunta = "subpregunta";
+    public static final String sp_edittex_var_input = "var_input";
+    public static final String sp_edittex_tipo = "tipo";
+    public static final String sp_edittex_longitud = "longitud";
+    /**Fin Campos**/
+    public static final String tablaspformulario = "c_sp_formulario";
+    /**InicioCampos**/
+    public static final String sp_formulario_id = "_id";
+    public static final String sp_formulario_id_pregunta = "id_pregunta";
+    public static final String sp_formulario_subpregunta = "subpregunta";
+    public static final String sp_formulario_var_edittext = "var_edittext";
+    public static final String sp_formulario_tipo_edittext = "tipo_edittext";
+    public static final String sp_formulario_long_edittext = "long_edittext";
+    public static final String sp_formulario_var_spinner = "var_spinner";
+    public static final String sp_formulario_var_esp_spinner = "var_esp_spinner";
+    public static final String sp_formulario_tipo_esp_spinner = "tipo_esp_spinner";
+    public static final String sp_formulario_long_esp_spinner = "long_esp_spinner";
+    public static final String sp_formulario_hab_esp_spinner = "hab_esp_spinner";
+    public static final String sp_formulario_var_check_no = "var_check_no";
+
+    /**Fin Campos**/
+    public static final String tablaspradio = "c_sp_radio";
+    /**InicioCampos**/
+    public static final String sp_radio_id = "_id";
+    public static final String sp_radio_id_pregunta = "id_pregunta";
+    public static final String sp_radio_subpregunta = "subpregunta";
+    public static final String sp_radio_var_input = "var_input";
+    public static final String sp_radio_var_especifique = "var_especifique";
+    public static final String sp_radio_deshabilita = "deshabilita";
+    /**Fin Campos**/
+    public static final String tablaubicacion = "c_ubicacion";
+    /**InicioCampos**/
+    public static final String ubicacion_id = "_id";
+    public static final String ubicacion_modulo = "modulo";
+    public static final String ubicacion_numero = "numero";
+    public static final String ubicacion_var_dep = "var_dep";
+    public static final String ubicacion_var_prov = "var_prov";
+    public static final String ubicacion_var_dist = "var_dist";
+    public static final String ubicacion_id_tabla = "id_tabla";
+    /**Fin Campos**/
+    public static final String tablavisitasencuestador = "c_visitas_encuestador";
+    /**InicioCampos**/
+    public static final String visitas_encuestador_id = "_id";
+    public static final String visitas_encuestador_modulo = "modulo";
+    public static final String visitas_encuestador_numero = "numero";
+    public static final String visitas_encuestador_var_numero = "var_numero";
+    public static final String visitas_encuestador_var_dia = "var_dia";
+    public static final String visitas_encuestador_var_mes = "var_mes";
+    public static final String visitas_encuestador_var_anio = "var_anio";
+    public static final String visitas_encuestador_var_hora_inicio = "var_hora_inicio";
+    public static final String visitas_encuestador_var_min_inicio = "var_min_inicio";
+    public static final String visitas_encuestador_var_hor_final = "var_hor_final";
+    public static final String visitas_encuestador_var_min_final = "var_min_final";
+    public static final String visitas_encuestador_var_prox_dia = "var_prox_dia";
+    public static final String visitas_encuestador_var_prox_mes = "var_prox_mes";
+    public static final String visitas_encuestador_var_prox_anio = "var_prox_anio";
+    public static final String visitas_encuestador_var_prox_hora = "var_prox_hora";
+    public static final String visitas_encuestador_var_prox_min = "var_prox_min";
+    public static final String visitas_encuestador_var_resultado = "var_resultado";
+    public static final String visitas_encuestador_var_final_resultado = "var_final_resultado";
+    public static final String visitas_encuestador_var_final_dia = "var_final_dia";
+    public static final String visitas_encuestador_var_final_mes = "var_final_mes";
+    public static final String visitas_encuestador_var_final_anio = "var_final_anio";
+    public static final String visitas_encuestador_id_tabla_visitas = "var_id_tabla_visitas";
+    public static final String visitas_encuestador_id_tabla_resultado = "var_id_tabla_resultado";
+    /**Fin Campos**/
+    public static final String tablavisitassupervisor = "c_visitas_supervisor";
+    /**InicioCampos**/
+    public static final String visitas_supervisor_id = "_id";
+    public static final String visitas_supervisor_modulo = "modulo";
+    public static final String visitas_supervisor_numero = "numero";
+    public static final String visitas_supervisor_var_numero = "var_numero";
+    public static final String visitas_supervisor_var_dia = "var_dia";
+    public static final String visitas_supervisor_var_mes = "var_mes";
+    public static final String visitas_supervisor_var_anio = "var_anio";
+    public static final String visitas_supervisor_var_hora_inicio = "var_hora_inicio";
+    public static final String visitas_supervisor_var_min_inicio = "var_min_inicio";
+    public static final String visitas_supervisor_var_hor_final = "var_hor_final";
+    public static final String visitas_supervisor_var_min_final = "var_min_final";
+    public static final String visitas_supervisor_var_resultado = "var_resultado";
+    public static final String visitas_supervisor_var_final_resultado = "var_final_resultado";
+    public static final String visitas_supervisor_var_final_dia = "var_final_dia";
+    public static final String visitas_supervisor_var_final_mes = "var_final_mes";
+    public static final String visitas_supervisor_var_final_anio = "var_final_anio";
+    public static final String visitas_supervisor_id_tabla_visitas = "var_id_tabla_visitas";
+    public static final String visitas_supervisor_id_tabla_resultado = "var_id_tabla_resultado";
+    /**Fin Campos**/
+
+    /**Fin Tablas Componentes **/
+
+
+
 
 
 }
