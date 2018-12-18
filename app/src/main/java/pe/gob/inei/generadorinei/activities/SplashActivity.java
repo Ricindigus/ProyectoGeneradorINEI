@@ -2,8 +2,8 @@ package pe.gob.inei.generadorinei.activities;
 
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -13,7 +13,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import pe.gob.inei.generadorinei.R;
-import pe.gob.inei.generadorinei.model.Data;
+import pe.gob.inei.generadorinei.model.DAOEncuesta;
 
 public class SplashActivity extends AppCompatActivity {
     int tiempoEspera = 3000;
@@ -27,8 +27,8 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         txtTitulo = (TextView) findViewById(R.id.tvTituloSplash);
         progressBar = (ProgressBar) findViewById(R.id.pbProgresoCopia);
-        Data data = new Data(SplashActivity.this);
-        if(data.checkDataBase()){
+        DAOEncuesta DAOEncuesta = new DAOEncuesta(SplashActivity.this);
+        if(DAOEncuesta.checkDataBase()){
 //            txtTitulo.setText(getString(R.string.nombre_encuesta));
             TimerTask timerTask = new TimerTask() {
                 @Override
@@ -57,10 +57,10 @@ public class SplashActivity extends AppCompatActivity {
         protected String doInBackground(Integer... integers) {
             String nombreApp = "";
             try {
-                Data data = new Data(SplashActivity.this,1);
-                data.open();
+                DAOEncuesta DAOEncuesta = new DAOEncuesta(SplashActivity.this,1);
+                DAOEncuesta.open();
 //                nombreApp = getString(R.string.nombre_encuesta);
-                data.close();
+                DAOEncuesta.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }

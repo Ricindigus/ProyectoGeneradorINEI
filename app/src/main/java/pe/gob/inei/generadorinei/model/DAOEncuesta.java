@@ -12,24 +12,25 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 
-public class Data {
+public class DAOEncuesta {
     Context contexto;
     SQLiteOpenHelper sqLiteOpenHelper;
     SQLiteDatabase sqLiteDatabase;
 
-    public Data(Context contexto){
+    public DAOEncuesta(Context contexto){
         this.contexto = contexto;
         sqLiteOpenHelper = new DBHelper(contexto);
     }
 
-    public Data(Context contexto,int flag) throws IOException {
+    public DAOEncuesta(Context contexto, int flag) throws IOException {
         this.contexto = contexto;
         sqLiteOpenHelper = new DBHelper(contexto);
         createDataBase();
     }
 
-    public Data(Context contexto, String inputPath) throws IOException {
+    public DAOEncuesta(Context contexto, String inputPath) throws IOException {
         this.contexto = contexto;
         sqLiteOpenHelper = new DBHelper(contexto);
         createDataBase(inputPath);
@@ -140,7 +141,7 @@ public class Data {
         Cursor cursor = null;
         try{
             cursor = sqLiteDatabase.query(SQLConstantes.tablaencuestas,
-                    null,SQLConstantes.clausula_where_id,whereArgs,null,null,null);
+                    null, SQLConstantes.clausula_where_id,whereArgs,null,null,null);
             if(cursor.getCount() == 1){
                 cursor.moveToFirst();
                 encuesta.setTipo(cursor.getString(cursor.getColumnIndex(SQLConstantes.encuestas_tipo)));
@@ -161,7 +162,7 @@ public class Data {
         Cursor cursor = null;
         try{
             cursor = sqLiteDatabase.query(SQLConstantes.tablausuarios,
-                    null,SQLConstantes.clausula_where_id,whereArgs,null,null,null);
+                    null, SQLConstantes.clausula_where_id,whereArgs,null,null,null);
             if(cursor.getCount() == 1){
                 cursor.moveToFirst();
                 usuario.set_id(cursor.getString(cursor.getColumnIndex(SQLConstantes.usuario_id)));
@@ -187,7 +188,7 @@ public class Data {
         Cursor cursor = null;
         try{
             cursor = sqLiteDatabase.query(SQLConstantes.tablamarco,
-                    null,SQLConstantes.clausula_where_id,whereArgs,null,null,null);
+                    null, SQLConstantes.clausula_where_id,whereArgs,null,null,null);
             if(cursor.getCount() == 1){
                 cursor.moveToFirst();
                 marco.set_id(cursor.getString(cursor.getColumnIndex(SQLConstantes.marco_id)));
@@ -231,6 +232,103 @@ public class Data {
         return marco;
     }
 
+    public ArrayList<Marco> getAllMarco(String idUsuario){
+        open();
+        ArrayList<Marco> marcos = new ArrayList<>();
+        String[] whereArgs = new String[]{idUsuario};
+        Cursor cursor = null;
+        try{
+            cursor = sqLiteDatabase.query(SQLConstantes.tablamarco,
+                    null, SQLConstantes.clausula_where_encuestador,whereArgs,null,null,null);
+            while (cursor.moveToNext()){
+                Marco marco = new Marco();
+                marco.set_id(cursor.getString(cursor.getColumnIndex(SQLConstantes.marco_id)));
+                marco.setAnio(cursor.getString(cursor.getColumnIndex(SQLConstantes.marco_anio)));
+                marco.setMes(cursor.getString(cursor.getColumnIndex(SQLConstantes.marco_mes)));
+                marco.setPeriodo(cursor.getString(cursor.getColumnIndex(SQLConstantes.marco_periodo)));
+                marco.setZona(cursor.getString(cursor.getColumnIndex(SQLConstantes.marco_zona)));
+                marco.setConglomerado(cursor.getString(cursor.getColumnIndex(SQLConstantes.marco_conglomerado)));
+                marco.setCcdd(cursor.getString(cursor.getColumnIndex(SQLConstantes.marco_ccdd)));
+                marco.setDepartamento(cursor.getString(cursor.getColumnIndex(SQLConstantes.marco_departamento)));
+                marco.setCcpp(cursor.getString(cursor.getColumnIndex(SQLConstantes.marco_ccpp)));
+                marco.setProvincia(cursor.getString(cursor.getColumnIndex(SQLConstantes.marco_provincia)));
+                marco.setCcdi(cursor.getString(cursor.getColumnIndex(SQLConstantes.marco_ccdi)));
+                marco.setDistrito(cursor.getString(cursor.getColumnIndex(SQLConstantes.marco_distrito)));
+                marco.setCodccpp(cursor.getString(cursor.getColumnIndex(SQLConstantes.marco_codccpp)));
+                marco.setNomccpp(cursor.getString(cursor.getColumnIndex(SQLConstantes.marco_nomccpp)));
+                marco.setRuc(cursor.getString(cursor.getColumnIndex(SQLConstantes.marco_ruc)));
+                marco.setRazon_social(cursor.getString(cursor.getColumnIndex(SQLConstantes.marco_razon_social)));
+                marco.setNombre_comercial(cursor.getString(cursor.getColumnIndex(SQLConstantes.marco_nombre_comercial)));
+                marco.setTipo_empresa(cursor.getString(cursor.getColumnIndex(SQLConstantes.marco_tipo_empresa)));
+                marco.setEncuestador(cursor.getString(cursor.getColumnIndex(SQLConstantes.marco_encuestador)));
+                marco.setSupervisor(cursor.getString(cursor.getColumnIndex(SQLConstantes.marco_supervisor)));
+                marco.setCoordinador(cursor.getString(cursor.getColumnIndex(SQLConstantes.marco_coordinador)));
+                marco.setFrente(cursor.getString(cursor.getColumnIndex(SQLConstantes.marco_frente)));
+                marco.setNumero_orden(cursor.getString(cursor.getColumnIndex(SQLConstantes.marco_numero_orden)));
+                marco.setManzana_id(cursor.getString(cursor.getColumnIndex(SQLConstantes.marco_manzana_id)));
+                marco.setTipo_via(cursor.getString(cursor.getColumnIndex(SQLConstantes.marco_tipo_via)));
+                marco.setNombre_via(cursor.getString(cursor.getColumnIndex(SQLConstantes.marco_nombre_via)));
+                marco.setPuerta(cursor.getString(cursor.getColumnIndex(SQLConstantes.marco_puerta)));
+                marco.setLote(cursor.getString(cursor.getColumnIndex(SQLConstantes.marco_lote)));
+                marco.setPiso(cursor.getString(cursor.getColumnIndex(SQLConstantes.marco_piso)));
+                marco.setManzana(cursor.getString(cursor.getColumnIndex(SQLConstantes.marco_manzana)));
+                marco.setBlock(cursor.getString(cursor.getColumnIndex(SQLConstantes.marco_block)));
+                marco.setInterior(cursor.getString(cursor.getColumnIndex(SQLConstantes.marco_interior)));
+                marco.setEstado(cursor.getString(cursor.getColumnIndex(SQLConstantes.marco_estado)));
+                marcos.add(marco);
+            }
+        }finally{
+            if(cursor != null) cursor.close();
+        }
+        close();
+        return marcos;
+    }
+
+    public ArrayList<ItemMarco> getAllItemsMarco(String idUsuario, CamposMarco camposMarco){
+        open();
+        ArrayList<ItemMarco> marcos = new ArrayList<>();
+        String[] whereArgs = new String[]{idUsuario};
+        Cursor cursor = null;
+        try{
+            cursor = sqLiteDatabase.query(SQLConstantes.tablamarco,
+                    null, SQLConstantes.clausula_where_encuestador,whereArgs,null,null,null);
+            while (cursor.moveToNext()){
+                ItemMarco itemMarco = new ItemMarco();
+                if (!camposMarco.getVar1().equals("")) itemMarco.setCampo1(cursor.getString(cursor.getColumnIndex(camposMarco.getVar1())));
+                if (!camposMarco.getVar2().equals("")) itemMarco.setCampo2(cursor.getString(cursor.getColumnIndex(camposMarco.getVar2())));
+                if (!camposMarco.getVar3().equals("")) itemMarco.setCampo3(cursor.getString(cursor.getColumnIndex(camposMarco.getVar3())));
+                if (!camposMarco.getVar4().equals("")) itemMarco.setCampo4(cursor.getString(cursor.getColumnIndex(camposMarco.getVar4())));
+                if (!camposMarco.getVar5().equals("")) itemMarco.setCampo5(cursor.getString(cursor.getColumnIndex(camposMarco.getVar5())));
+                if (!camposMarco.getVar6().equals("")) itemMarco.setCampo6(cursor.getString(cursor.getColumnIndex(camposMarco.getVar6())));
+                if (!camposMarco.getVar7().equals("")) itemMarco.setCampo7(cursor.getString(cursor.getColumnIndex(camposMarco.getVar7())));
+                marcos.add(itemMarco);
+            }
+        }finally{
+            if(cursor != null) cursor.close();
+        }
+        close();
+        return marcos;
+    }
+
+    public ArrayList<String> getArrayFiltro1(String column){
+        open();
+        ArrayList<String> arrayFiltro1 = new ArrayList<>();
+        String[] columns = {column};
+        Cursor cursor = null;
+        try{
+            cursor = sqLiteDatabase.query(true, SQLConstantes.tablamarco,
+                    columns,null,null,null,null,null,null);
+            while (cursor.moveToNext()){
+                String elemento = cursor.getString(cursor.getColumnIndex(column));
+                arrayFiltro1.add(elemento);
+            }
+        }finally{
+            if(cursor != null) cursor.close();
+        }
+        close();
+        return arrayFiltro1;
+    }
+
     public CamposMarco getCamposMarco(){
         open();
         CamposMarco camposMarco = new CamposMarco();
@@ -238,7 +336,7 @@ public class Data {
         Cursor cursor = null;
         try{
             cursor = sqLiteDatabase.query(SQLConstantes.tablacamposmarco,
-                    null,SQLConstantes.clausula_where_id,whereArgs,null,null,null);
+                    null, SQLConstantes.clausula_where_id,whereArgs,null,null,null);
             if(cursor.getCount() == 1){
                 cursor.moveToFirst();
                 camposMarco.set_id(cursor.getString(cursor.getColumnIndex(SQLConstantes.marco_id)));
@@ -278,7 +376,7 @@ public class Data {
         Cursor cursor = null;
         try{
             cursor = sqLiteDatabase.query(SQLConstantes.tablafiltrosmarco,
-                    null,SQLConstantes.clausula_where_id,whereArgs,null,null,null);
+                    null, SQLConstantes.clausula_where_id,whereArgs,null,null,null);
             if(cursor.getCount() == 1){
                 cursor.moveToFirst();
                 filtrosMarco.set_id(cursor.getString(cursor.getColumnIndex(SQLConstantes.filtros_marco_id)));

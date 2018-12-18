@@ -191,11 +191,6 @@ public class SQLConstantes {
      * */
 
 
-    /** Clausulas WHERE * */
-    public static final String clausula_where_id = "_id=?";
-
-
-
     /**Inicio Tablas Componentes **/
     public static final String tablacheckbox = "c_checkbox";
     /**InicioCampos**/
@@ -344,7 +339,9 @@ public class SQLConstantes {
     /**Fin Tablas Componentes **/
 
 
-
+    /** Clausulas WHERE * */
+    public static final String clausula_where_id = "_id=?";
+    public static final String clausula_where_encuestador = "encuestador=?";
 
 
 }

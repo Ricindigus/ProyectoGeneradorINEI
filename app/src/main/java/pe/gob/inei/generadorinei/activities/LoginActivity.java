@@ -3,10 +3,10 @@ package pe.gob.inei.generadorinei.activities;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.InputFilter;
 import android.view.KeyEvent;
 import android.view.View;
@@ -16,7 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import pe.gob.inei.generadorinei.R;
-import pe.gob.inei.generadorinei.model.Data;
+import pe.gob.inei.generadorinei.model.DAOEncuesta;
 import pe.gob.inei.generadorinei.model.Encuesta;
 import pe.gob.inei.generadorinei.model.Usuario;
 
@@ -29,33 +29,30 @@ public class LoginActivity extends AppCompatActivity {
     private Button btnIngresar;
     private LinearLayout lytPrincipal;
     private String tituloEncuesta;
-    private Data data;
+    private DAOEncuesta DAOEncuesta;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        data = new Data(this);
+        DAOEncuesta = new DAOEncuesta(this);
         conectarvistas();
         setearTituloEncuesta();
         configurarInputs();
 
 
-        edtUsuario.setText("OPER01");
+        edtUsuario.setText("ENC0001");
         edtPassword.setText("123456");
 
         btnIngresar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(validarCampos() == true){
-                    Usuario usuario = new Usuario();
-                    usuario = data.getUsuario(edtUsuario.getText().toString());
+                    Usuario usuario = DAOEncuesta.getUsuario(edtUsuario.getText().toString());
                     if(usuario.getClave().equals(edtPassword.getText().toString())){
                         Intent intent = new Intent(getApplicationContext(),MarcoActivity.class);
                         intent.putExtra("idUsuario",usuario.get_id());
-                        intent.putExtra("permisoUsuario",usuario.getCargo_id());
-                        intent.putExtra("tituloEncuesta",tituloEncuesta);
                         startActivity(intent);
                         finish();
                     }else{
@@ -68,24 +65,6 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-
-
-
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
-//        lytPrincipal = (LinearLayout) findViewById(R.id.login_layout);
-//        lytPrincipal.requestFocus();
-//    }
-//
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        lytPrincipal = (LinearLayout) findViewById(R.id.login_layout);
-//        lytPrincipal.requestFocus();
-//    }
-
-
     private void conectarvistas(){
         tvTituloEncuesta = findViewById(R.id.login_tvTituloEncuesta);
         edtUsuario = findViewById(R.id.login_edtUsuario);
@@ -94,7 +73,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void setearTituloEncuesta() {
-        Encuesta encuesta = data.getEncuesta();
+        Encuesta encuesta = DAOEncuesta.getEncuesta();
         tituloEncuesta = encuesta.getTitulo();
         tvTituloEncuesta.setText(tituloEncuesta);
     }
@@ -133,4 +112,21 @@ public class LoginActivity extends AppCompatActivity {
         }
         return super.onKeyDown(keyCode, event);
     }
+
+
+
+
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//        lytPrincipal = (LinearLayout) findViewById(R.id.login_layout);
+//        lytPrincipal.requestFocus();
+//    }
+//
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        lytPrincipal = (LinearLayout) findViewById(R.id.login_layout);
+//        lytPrincipal.requestFocus();
+//    }
 }

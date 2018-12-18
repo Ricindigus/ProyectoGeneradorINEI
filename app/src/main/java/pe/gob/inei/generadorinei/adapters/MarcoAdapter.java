@@ -93,24 +93,23 @@ public class MarcoAdapter extends RecyclerView.Adapter<MarcoAdapter.ItemMarcoHol
             tvCampo6 = itemView.findViewById(R.id.tvItemMarcoCampo6);
             tvCampo7 = itemView.findViewById(R.id.tvItemMarcoCampo7);
 
-            configurarVistaCampo(camposMarco,tvCampo1);
-            configurarVistaCampo(camposMarco,tvCampo2);
-            configurarVistaCampo(camposMarco,tvCampo3);
-            configurarVistaCampo(camposMarco,tvCampo4);
-            configurarVistaCampo(camposMarco,tvCampo5);
-            configurarVistaCampo(camposMarco,tvCampo6);
-            configurarVistaCampo(camposMarco,tvCampo7);
+            configurarVistaCampo(camposMarco.getVar1(),camposMarco.getPeso1(),tvCampo1);
+            configurarVistaCampo(camposMarco.getVar2(),camposMarco.getPeso2(),tvCampo2);
+            configurarVistaCampo(camposMarco.getVar3(),camposMarco.getPeso3(),tvCampo3);
+            configurarVistaCampo(camposMarco.getVar4(),camposMarco.getPeso4(),tvCampo4);
+            configurarVistaCampo(camposMarco.getVar5(),camposMarco.getPeso5(),tvCampo5);
+            configurarVistaCampo(camposMarco.getVar6(),camposMarco.getPeso6(),tvCampo6);
+            configurarVistaCampo(camposMarco.getVar7(),camposMarco.getPeso7(),tvCampo7);
         }
 
-        private void configurarVistaCampo(CamposMarco camposMarco, TextView textView) {
-            if (camposMarco.getVar1().equals("")) textView.setVisibility(View.GONE);
-            else setPesoLayout(textView,Integer.parseInt(camposMarco.getPeso1()));
-        }
-
-        public void setPesoLayout(View view, int peso){
-            LinearLayout.LayoutParams params =
-                    new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, peso*1.0f);
-            view.setLayoutParams(params);
+        private void configurarVistaCampo(String varCampo, String peso, TextView textView) {
+            if (varCampo.equals(""))
+                textView.setVisibility(View.GONE);
+            else {
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0,
+                        LinearLayout.LayoutParams.MATCH_PARENT, Integer.parseInt(peso)*1.0f);
+                textView.setLayoutParams(params);
+            }
         }
     }
 }

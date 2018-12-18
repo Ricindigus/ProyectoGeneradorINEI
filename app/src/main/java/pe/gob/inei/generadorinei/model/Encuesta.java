@@ -1,7 +1,5 @@
 package pe.gob.inei.generadorinei.model;
 
-import android.database.Cursor;
-
 public class Encuesta {
     private String _id;
     private String titulo;
