@@ -310,6 +310,114 @@ public class DAOEncuesta {
         return marcos;
     }
 
+    public ArrayList<ItemMarco> getAllItemsMarcoFiltro1(String idUsuario, CamposMarco camposMarco,String column1,String valorFiltro1){
+        open();
+        ArrayList<ItemMarco> marcos = new ArrayList<>();
+        String[] whereArgs = new String[]{idUsuario,valorFiltro1};
+        Cursor cursor = null;
+        try{
+            cursor = sqLiteDatabase.query(SQLConstantes.tablamarco,
+                    null, SQLConstantes.clausula_where_encuestador + " AND " + column1+"=?",whereArgs,null,null,null);
+            while (cursor.moveToNext()){
+                ItemMarco itemMarco = new ItemMarco();
+                if (!camposMarco.getVar1().equals("")) itemMarco.setCampo1(cursor.getString(cursor.getColumnIndex(camposMarco.getVar1())));
+                if (!camposMarco.getVar2().equals("")) itemMarco.setCampo2(cursor.getString(cursor.getColumnIndex(camposMarco.getVar2())));
+                if (!camposMarco.getVar3().equals("")) itemMarco.setCampo3(cursor.getString(cursor.getColumnIndex(camposMarco.getVar3())));
+                if (!camposMarco.getVar4().equals("")) itemMarco.setCampo4(cursor.getString(cursor.getColumnIndex(camposMarco.getVar4())));
+                if (!camposMarco.getVar5().equals("")) itemMarco.setCampo5(cursor.getString(cursor.getColumnIndex(camposMarco.getVar5())));
+                if (!camposMarco.getVar6().equals("")) itemMarco.setCampo6(cursor.getString(cursor.getColumnIndex(camposMarco.getVar6())));
+                if (!camposMarco.getVar7().equals("")) itemMarco.setCampo7(cursor.getString(cursor.getColumnIndex(camposMarco.getVar7())));
+                marcos.add(itemMarco);
+            }
+        }finally{
+            if(cursor != null) cursor.close();
+        }
+        close();
+        return marcos;
+    }
+
+    public ArrayList<ItemMarco> getAllItemsMarcoFiltro2(String idUsuario, CamposMarco camposMarco,String column1,String valorFiltro1,String column2,String valorFiltro2){
+        open();
+        ArrayList<ItemMarco> marcos = new ArrayList<>();
+        String[] whereArgs = new String[]{idUsuario,valorFiltro1,valorFiltro2};
+        Cursor cursor = null;
+        try{
+            cursor = sqLiteDatabase.query(SQLConstantes.tablamarco,
+                    null, SQLConstantes.clausula_where_encuestador + " AND " + column1+"=?" + " AND " + column2+"=?",whereArgs,null,null,null);
+            while (cursor.moveToNext()){
+                ItemMarco itemMarco = new ItemMarco();
+                if (!camposMarco.getVar1().equals("")) itemMarco.setCampo1(cursor.getString(cursor.getColumnIndex(camposMarco.getVar1())));
+                if (!camposMarco.getVar2().equals("")) itemMarco.setCampo2(cursor.getString(cursor.getColumnIndex(camposMarco.getVar2())));
+                if (!camposMarco.getVar3().equals("")) itemMarco.setCampo3(cursor.getString(cursor.getColumnIndex(camposMarco.getVar3())));
+                if (!camposMarco.getVar4().equals("")) itemMarco.setCampo4(cursor.getString(cursor.getColumnIndex(camposMarco.getVar4())));
+                if (!camposMarco.getVar5().equals("")) itemMarco.setCampo5(cursor.getString(cursor.getColumnIndex(camposMarco.getVar5())));
+                if (!camposMarco.getVar6().equals("")) itemMarco.setCampo6(cursor.getString(cursor.getColumnIndex(camposMarco.getVar6())));
+                if (!camposMarco.getVar7().equals("")) itemMarco.setCampo7(cursor.getString(cursor.getColumnIndex(camposMarco.getVar7())));
+                marcos.add(itemMarco);
+            }
+        }finally{
+            if(cursor != null) cursor.close();
+        }
+        close();
+        return marcos;
+    }
+
+    public ArrayList<ItemMarco> getAllItemsMarcoFiltro3(String idUsuario, CamposMarco camposMarco,String column1,String valorFiltro1,
+                                                 String column2,String valorFiltro2,String column3,String valorFiltro3){
+        open();
+        ArrayList<ItemMarco> marcos = new ArrayList<>();
+        String[] whereArgs = new String[]{idUsuario,valorFiltro1,valorFiltro2,valorFiltro3};
+        Cursor cursor = null;
+        try{
+            cursor = sqLiteDatabase.query(SQLConstantes.tablamarco,
+                    null, SQLConstantes.clausula_where_encuestador + " AND " + column1+"=?" + " AND " + column2+"=?" + " AND " + column3+"=?",
+                    whereArgs,null,null,null);
+            while (cursor.moveToNext()){
+                ItemMarco itemMarco = new ItemMarco();
+                if (!camposMarco.getVar1().equals("")) itemMarco.setCampo1(cursor.getString(cursor.getColumnIndex(camposMarco.getVar1())));
+                if (!camposMarco.getVar2().equals("")) itemMarco.setCampo2(cursor.getString(cursor.getColumnIndex(camposMarco.getVar2())));
+                if (!camposMarco.getVar3().equals("")) itemMarco.setCampo3(cursor.getString(cursor.getColumnIndex(camposMarco.getVar3())));
+                if (!camposMarco.getVar4().equals("")) itemMarco.setCampo4(cursor.getString(cursor.getColumnIndex(camposMarco.getVar4())));
+                if (!camposMarco.getVar5().equals("")) itemMarco.setCampo5(cursor.getString(cursor.getColumnIndex(camposMarco.getVar5())));
+                if (!camposMarco.getVar6().equals("")) itemMarco.setCampo6(cursor.getString(cursor.getColumnIndex(camposMarco.getVar6())));
+                if (!camposMarco.getVar7().equals("")) itemMarco.setCampo7(cursor.getString(cursor.getColumnIndex(camposMarco.getVar7())));
+                marcos.add(itemMarco);
+            }
+        }finally{
+            if(cursor != null) cursor.close();
+        }
+        close();
+        return marcos;
+    }
+
+    public ArrayList<ItemMarco> getAllItemsMarcoFiltro4(String idUsuario, CamposMarco camposMarco,String column1,String valorFiltro1,
+                                                 String column2,String valorFiltro2,String column3,String valorFiltro3,String column4,String valorFiltro4){
+        open();
+        ArrayList<ItemMarco> marcos = new ArrayList<>();
+        String[] whereArgs = new String[]{idUsuario,valorFiltro1,valorFiltro2,valorFiltro3,valorFiltro4};
+        Cursor cursor = null;
+        try{
+            cursor = sqLiteDatabase.query(SQLConstantes.tablamarco, null,
+                    SQLConstantes.clausula_where_encuestador + " AND " + column1+"=?" + " AND " + column2+"=?" + " AND " + column3+"=?" + " AND " + column4+"=?",
+                    whereArgs,null,null,null);
+            while (cursor.moveToNext()){
+                ItemMarco itemMarco = new ItemMarco();
+                if (!camposMarco.getVar1().equals("")) itemMarco.setCampo1(cursor.getString(cursor.getColumnIndex(camposMarco.getVar1())));
+                if (!camposMarco.getVar2().equals("")) itemMarco.setCampo2(cursor.getString(cursor.getColumnIndex(camposMarco.getVar2())));
+                if (!camposMarco.getVar3().equals("")) itemMarco.setCampo3(cursor.getString(cursor.getColumnIndex(camposMarco.getVar3())));
+                if (!camposMarco.getVar4().equals("")) itemMarco.setCampo4(cursor.getString(cursor.getColumnIndex(camposMarco.getVar4())));
+                if (!camposMarco.getVar5().equals("")) itemMarco.setCampo5(cursor.getString(cursor.getColumnIndex(camposMarco.getVar5())));
+                if (!camposMarco.getVar6().equals("")) itemMarco.setCampo6(cursor.getString(cursor.getColumnIndex(camposMarco.getVar6())));
+                if (!camposMarco.getVar7().equals("")) itemMarco.setCampo7(cursor.getString(cursor.getColumnIndex(camposMarco.getVar7())));
+                marcos.add(itemMarco);
+            }
+        }finally{
+            if(cursor != null) cursor.close();
+        }
+        close();
+        return marcos;
+    }
+
     public ArrayList<String> getArrayFiltro1(String column){
         open();
         ArrayList<String> arrayFiltro1 = new ArrayList<>();

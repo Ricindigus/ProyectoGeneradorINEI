@@ -43,7 +43,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
         edtUsuario.setText("ENC0001");
-        edtPassword.setText("123456");
+        edtPassword.setText("12345");
 
         btnIngresar.setOnClickListener(new View.OnClickListener() {
             @Override
