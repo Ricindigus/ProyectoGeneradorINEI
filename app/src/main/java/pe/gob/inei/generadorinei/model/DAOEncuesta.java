@@ -418,15 +418,16 @@ public class DAOEncuesta {
         return marcos;
     }
 
-    public ArrayList<String> getArrayFiltro1(String column){
+    public ArrayList<String> getArrayFiltro1(String idUsuario, String column){
         open();
         ArrayList<String> arrayFiltro1 = new ArrayList<>();
         arrayFiltro1.add("Seleccionar");
         String[] columns = {column};
+        String[] whereArgs = new String[]{idUsuario};
         Cursor cursor = null;
         try{
             cursor = sqLiteDatabase.query(true, SQLConstantes.tablamarco,
-                    columns,null,null,null,null,column,null);
+                    columns,SQLConstantes.clausula_where_encuestador,whereArgs,null,null,column,null);
             while (cursor.moveToNext()){
                 String elemento = cursor.getString(cursor.getColumnIndex(column));
                 arrayFiltro1.add(elemento);
@@ -438,16 +439,16 @@ public class DAOEncuesta {
         return arrayFiltro1;
     }
 
-    public ArrayList<String> getArrayFiltro2(String column1,String valorFiltro1,String column2){
+    public ArrayList<String> getArrayFiltro2(String idUsuario, String column1,String valorFiltro1,String column2){
         open();
         ArrayList<String> arrayFiltro2 = new ArrayList<>();
         arrayFiltro2.add("Seleccionar");
-        String[] whereArgs = new String[]{valorFiltro1};
+        String[] whereArgs = new String[]{idUsuario,valorFiltro1};
         String[] columns = {column2};
         Cursor cursor = null;
         try{
             cursor = sqLiteDatabase.query(true, SQLConstantes.tablamarco,
-                    columns,column1+"=?",whereArgs,null,null,column2,null);
+                    columns,SQLConstantes.clausula_where_encuestador + " AND "+ column1+"=?",whereArgs,null,null,column2,null);
             while (cursor.moveToNext()){
                 String elemento = cursor.getString(cursor.getColumnIndex(column2));
                 arrayFiltro2.add(elemento);
@@ -459,16 +460,16 @@ public class DAOEncuesta {
         return arrayFiltro2;
     }
 
-    public ArrayList<String> getArrayFiltro3(String column1,String valorFiltro1,String column2,String valorFiltro2,String column3){
+    public ArrayList<String> getArrayFiltro3(String idUsuario,String column1,String valorFiltro1,String column2,String valorFiltro2,String column3){
         open();
         ArrayList<String> arrayFiltro3 = new ArrayList<>();
         arrayFiltro3.add("Seleccionar");
-        String[] whereArgs = new String[]{valorFiltro1,valorFiltro2};
+        String[] whereArgs = new String[]{idUsuario,valorFiltro1,valorFiltro2};
         String[] columns = {column3};
         Cursor cursor = null;
         try{
             cursor = sqLiteDatabase.query(true, SQLConstantes.tablamarco,
-                    columns,column1+"=?" + " AND " + column2+"=?",whereArgs,null,null,column3,null);
+                    columns,SQLConstantes.clausula_where_encuestador + " AND "+ column1+"=?" + " AND " + column2+"=?",whereArgs,null,null,column3,null);
             while (cursor.moveToNext()){
                 String elemento = cursor.getString(cursor.getColumnIndex(column3));
                 arrayFiltro3.add(elemento);
@@ -480,18 +481,18 @@ public class DAOEncuesta {
         return arrayFiltro3;
     }
 
-    public ArrayList<String> getArrayFiltro4(String column1,String valorFiltro1,
+    public ArrayList<String> getArrayFiltro4(String idUsuario, String column1,String valorFiltro1,
                                              String column2,String valorFiltro2,
                                              String column3,String valorFiltro3,String column4){
         open();
         ArrayList<String> arrayFiltro4 = new ArrayList<>();
         arrayFiltro4.add("Seleccionar");
-        String[] whereArgs = new String[]{valorFiltro1,valorFiltro2,valorFiltro3};
+        String[] whereArgs = new String[]{idUsuario,valorFiltro1,valorFiltro2,valorFiltro3};
         String[] columns = {column4};
         Cursor cursor = null;
         try{
             cursor = sqLiteDatabase.query(true, SQLConstantes.tablamarco,
-                    columns,column1+"=?" + " AND " + column2+"=?"+ " AND " + column3+"=?",whereArgs,null,null,column4,null);
+                    columns,SQLConstantes.clausula_where_encuestador + " AND "+ column1+"=?" + " AND " + column2+"=?"+ " AND " + column3+"=?",whereArgs,null,null,column4,null);
             while (cursor.moveToNext()){
                 String elemento = cursor.getString(cursor.getColumnIndex(column4));
                 arrayFiltro4.add(elemento);

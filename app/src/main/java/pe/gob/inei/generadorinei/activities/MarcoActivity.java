@@ -107,13 +107,13 @@ public class MarcoActivity extends AppCompatActivity {
         if (filtrosMarco.getNombre1().equals("")) lytFiltro1.setVisibility(View.GONE);
         else {
             tvFiltro1.setText(filtrosMarco.getNombre1());
-            arrayFiltro1 = daoEncuesta.getArrayFiltro1(filtrosMarco.getFiltro1());
+            arrayFiltro1 = daoEncuesta.getArrayFiltro1(idUsuario,filtrosMarco.getFiltro1());
             cargarSpinnerFiltro(spFiltro1, arrayFiltro1);
             spFiltro1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                     if (!filtrosMarco.getNombre2().equals("")){
-                        if (i > 0) arrayFiltro2 = daoEncuesta.getArrayFiltro2(filtrosMarco.getFiltro1(), spFiltro1.getSelectedItem().toString(), filtrosMarco.getFiltro2());
+                        if (i > 0) arrayFiltro2 = daoEncuesta.getArrayFiltro2(idUsuario,filtrosMarco.getFiltro1(), spFiltro1.getSelectedItem().toString(), filtrosMarco.getFiltro2());
                         else arrayFiltro2 = new ArrayList<String>();
                         cargarSpinnerFiltro(spFiltro2, arrayFiltro2);
                         arrayFiltro3 = new ArrayList<String>();
@@ -143,7 +143,7 @@ public class MarcoActivity extends AppCompatActivity {
                     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                         if (!filtrosMarco.getNombre3().equals("")) {
                             if (i > 0)
-                                arrayFiltro3 = daoEncuesta.getArrayFiltro3(
+                                arrayFiltro3 = daoEncuesta.getArrayFiltro3(idUsuario,
                                         filtrosMarco.getFiltro1(), spFiltro1.getSelectedItem().toString(),
                                         filtrosMarco.getFiltro2(), spFiltro2.getSelectedItem().toString(),
                                         filtrosMarco.getFiltro3());
@@ -177,7 +177,7 @@ public class MarcoActivity extends AppCompatActivity {
                 @Override
                 public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                     if (!filtrosMarco.getNombre4().equals("")) {
-                        if (i > 0) arrayFiltro4 = daoEncuesta.getArrayFiltro4(
+                        if (i > 0) arrayFiltro4 = daoEncuesta.getArrayFiltro4(idUsuario,
                                 filtrosMarco.getFiltro1(), spFiltro1.getSelectedItem().toString(),
                                 filtrosMarco.getFiltro2(), spFiltro2.getSelectedItem().toString(),
                                 filtrosMarco.getFiltro3(), spFiltro3.getSelectedItem().toString(), filtrosMarco.getFiltro4());
