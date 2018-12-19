@@ -6,6 +6,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -34,6 +36,8 @@ public class MarcoActivity extends AppCompatActivity {
     MarcoAdapter marcoAdapter;
     ArrayList<ItemMarco> marcos;
     String idUsuario;
+
+    ArrayList<String> arrayFiltro1,arrayFiltro2,arrayFiltro3,arrayFiltro4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,18 +78,71 @@ public class MarcoActivity extends AppCompatActivity {
     }
     private void configurarFiltros() {
         filtrosMarco = daoEncuesta.getFiltrosMarco();
-        configurarFiltroSpinner(filtrosMarco.getNombre1(),spFiltro1,tvFiltro1);
 
-        configurarFiltroSpinner(filtrosMarco.getNombre2(),spFiltro2,tvFiltro2);
+        if (filtrosMarco.getNombre1().equals("")) spFiltro1.setVisibility(View.GONE);
+        else {
+            tvFiltro1.setText(filtrosMarco.getNombre1());
+            arrayFiltro1 = daoEncuesta.getArrayFiltro1(filtrosMarco.getFiltro1());
+            cargarSpinnerFiltro(spFiltro1,arrayFiltro1);
+            spFiltro1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                    if(i > 0) arrayFiltro2 = daoEncuesta.getArrayFiltro2(filtrosMarco.getFiltro1(),spFiltro1.getSelectedItem().toString(),filtrosMarco.getFiltro2());
+                    if(i == 0) arrayFiltro2 = new ArrayList<String>();
+                    cargarSpinnerFiltro(spFiltro2,arrayFiltro2);
+                    arrayFiltro3 = new ArrayList<String>();
+                    cargarSpinnerFiltro(spFiltro3,arrayFiltro3);
+                    arrayFiltro4 = new ArrayList<String>();
+                    cargarSpinnerFiltro(spFiltro4,arrayFiltro4);
+                }
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {}
+            });
+        }
 
-        configurarFiltroSpinner(filtrosMarco.getNombre3(),spFiltro3,tvFiltro3);
-        configurarFiltroSpinner(filtrosMarco.getNombre4(),spFiltro4,tvFiltro4);
+        if (filtrosMarco.getNombre2().equals("")) spFiltro2.setVisibility(View.GONE);
+        else {
+            tvFiltro2.setText(filtrosMarco.getNombre2());
+            spFiltro2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                    if(i > 0) arrayFiltro3 = daoEncuesta.getArrayFiltro3(filtrosMarco.getFiltro1(),spFiltro1.getSelectedItem().toString(),
+                            filtrosMarco.getFiltro2(),spFiltro2.getSelectedItem().toString(),filtrosMarco.getFiltro3());
+                    if(i == 0) arrayFiltro3 = new ArrayList<String>();
+                    cargarSpinnerFiltro(spFiltro3,arrayFiltro3);
+                    arrayFiltro4 = new ArrayList<String>();
+                    cargarSpinnerFiltro(spFiltro4,arrayFiltro4);
+                }
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {}
+            });
+        }
+
+        if (filtrosMarco.getNombre3().equals("")) spFiltro2.setVisibility(View.GONE);
+        else {
+            tvFiltro3.setText(filtrosMarco.getNombre3());
+            spFiltro3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                    if(i > 0) arrayFiltro4 = daoEncuesta.getArrayFiltro4(filtrosMarco.getFiltro1(),spFiltro1.getSelectedItem().toString(),
+                            filtrosMarco.getFiltro2(),spFiltro2.getSelectedItem().toString(),
+                            filtrosMarco.getFiltro3(),spFiltro3.getSelectedItem().toString(),filtrosMarco.getFiltro4());
+                    if(i == 0) arrayFiltro4 = new ArrayList<String>();
+                    cargarSpinnerFiltro(spFiltro4,arrayFiltro4);
+                }
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {}
+            });
+        }
+
     }
 
-    private void configurarFiltroSpinner(String nombreFiltro, Spinner spinner,TextView textView) {
-        if (nombreFiltro.equals("")) spinner.setVisibility(View.GONE);
-        else textView.setText(nombreFiltro);
+    private void cargarSpinnerFiltro(Spinner spfiltro, ArrayList<String> datos){
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,datos);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spfiltro.setAdapter(adapter);
     }
+
 
     private void configurarCabeceraMarco() {
         camposMarco = daoEncuesta.getCamposMarco();

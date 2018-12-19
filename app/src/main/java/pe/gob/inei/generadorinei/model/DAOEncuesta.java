@@ -313,11 +313,12 @@ public class DAOEncuesta {
     public ArrayList<String> getArrayFiltro1(String column){
         open();
         ArrayList<String> arrayFiltro1 = new ArrayList<>();
+        arrayFiltro1.add("Seleccionar");
         String[] columns = {column};
         Cursor cursor = null;
         try{
             cursor = sqLiteDatabase.query(true, SQLConstantes.tablamarco,
-                    columns,null,null,null,null,null,null);
+                    columns,null,null,null,null,column,null);
             while (cursor.moveToNext()){
                 String elemento = cursor.getString(cursor.getColumnIndex(column));
                 arrayFiltro1.add(elemento);
@@ -327,6 +328,71 @@ public class DAOEncuesta {
         }
         close();
         return arrayFiltro1;
+    }
+
+    public ArrayList<String> getArrayFiltro2(String column1,String valorFiltro1,String column2){
+        open();
+        ArrayList<String> arrayFiltro2 = new ArrayList<>();
+        arrayFiltro2.add("Seleccionar");
+        String[] whereArgs = new String[]{valorFiltro1};
+        String[] columns = {column2};
+        Cursor cursor = null;
+        try{
+            cursor = sqLiteDatabase.query(true, SQLConstantes.tablamarco,
+                    columns,column1+"=?",whereArgs,null,null,column2,null);
+            while (cursor.moveToNext()){
+                String elemento = cursor.getString(cursor.getColumnIndex(column2));
+                arrayFiltro2.add(elemento);
+            }
+        }finally{
+            if(cursor != null) cursor.close();
+        }
+        close();
+        return arrayFiltro2;
+    }
+
+    public ArrayList<String> getArrayFiltro3(String column1,String valorFiltro1,String column2,String valorFiltro2,String column3){
+        open();
+        ArrayList<String> arrayFiltro3 = new ArrayList<>();
+        arrayFiltro3.add("Seleccionar");
+        String[] whereArgs = new String[]{valorFiltro1,valorFiltro2};
+        String[] columns = {column3};
+        Cursor cursor = null;
+        try{
+            cursor = sqLiteDatabase.query(true, SQLConstantes.tablamarco,
+                    columns,column1+"=?" + " AND " + column2+"=?",whereArgs,null,null,column3,null);
+            while (cursor.moveToNext()){
+                String elemento = cursor.getString(cursor.getColumnIndex(column3));
+                arrayFiltro3.add(elemento);
+            }
+        }finally{
+            if(cursor != null) cursor.close();
+        }
+        close();
+        return arrayFiltro3;
+    }
+
+    public ArrayList<String> getArrayFiltro4(String column1,String valorFiltro1,
+                                             String column2,String valorFiltro2,
+                                             String column3,String valorFiltro3,String column4){
+        open();
+        ArrayList<String> arrayFiltro4 = new ArrayList<>();
+        arrayFiltro4.add("Seleccionar");
+        String[] whereArgs = new String[]{valorFiltro1,valorFiltro2,valorFiltro3};
+        String[] columns = {column4};
+        Cursor cursor = null;
+        try{
+            cursor = sqLiteDatabase.query(true, SQLConstantes.tablamarco,
+                    columns,column1+"=?" + " AND " + column2+"=?"+ " AND " + column3+"=?",whereArgs,null,null,column4,null);
+            while (cursor.moveToNext()){
+                String elemento = cursor.getString(cursor.getColumnIndex(column4));
+                arrayFiltro4.add(elemento);
+            }
+        }finally{
+            if(cursor != null) cursor.close();
+        }
+        close();
+        return arrayFiltro4;
     }
 
     public CamposMarco getCamposMarco(){
