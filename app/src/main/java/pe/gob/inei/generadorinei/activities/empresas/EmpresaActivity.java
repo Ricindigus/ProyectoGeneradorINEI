@@ -1,6 +1,7 @@
 package pe.gob.inei.generadorinei.activities.empresas;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -10,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
@@ -52,6 +54,8 @@ public class EmpresaActivity extends AppCompatActivity {
     View lytFocus;
 
     String idModuloActual = "";
+    int paginaActual = 1;
+    int numeroPaginasTotal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +63,7 @@ public class EmpresaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_empresa);
         daoEncuesta = new DAOEncuesta(this);
         tituloEncuesta = daoEncuesta.getEncuesta().getTitulo();
+        numeroPaginasTotal = daoEncuesta.getNroPaginas(TipoActividad.ACTIVIDAD_EMPRESA);
         conectarVistas();
         setSupportActionBar(toolbar);
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -67,6 +72,59 @@ public class EmpresaActivity extends AppCompatActivity {
 
         configurarCabeceraNavigation();
         configurarListaExpandible();
+
+        btnAtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ocultarTeclado(btnAtras);
+                if (paginaActual - 1 >= 1) {
+                    do{
+                        paginaActual--;
+                    }while(!validoSetearPagina(paginaActual));
+//                    setearPagina(paginaActual, -1);
+                    setNombreSeccion(paginaActual, -1);
+                }
+
+            }
+        });
+
+        btnSiguiente.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ocultarTeclado(btnSiguiente);
+                if (validarPagina(paginaActual)) {
+                    guardarPagina(paginaActual);
+                    do{
+                        if (paginaActual + 1 <= numeroPaginasTotal) paginaActual++;
+                        else paginaActual = 1;
+                    }while(!validoSetearPagina(paginaActual));
+//                    setearPagina(paginaActual, 1);
+                    setNombreSeccion(paginaActual, 1);
+                }
+            }
+        });
+
+        setNombreSeccion(1, 1);
+    }
+
+    private boolean validarPagina(int paginaActual) {
+        return true;
+    }
+
+    private void guardarPagina(int paginaActual) {
+    }
+
+    public void setearPagina(int numeroPagina, int direccion) {
+        Pagina pagina = daoEncuesta.getPagina(numeroPagina+"",TipoActividad.ACTIVIDAD_EMPRESA);
+//        ArrayList<Pregunta> preguntas =  dataComponentes.getPreguntasXPagina(numeroPagina + "");
+//        if(preguntas.size() == 1){
+//            if (Integer.parseInt(preguntas.get(0).getTIPO()) == TipoComponente.VISITAS) setPaginaVisita(numeroPagina, direccion);
+//            else setPaginaNormal(numeroPagina, direccion);
+//        }else setPaginaNormal(numeroPagina, direccion);
+    }
+
+    private boolean validoSetearPagina(int paginaActual) {
+        return true;
     }
 
     private void configurarCabeceraNavigation() {
@@ -117,15 +175,14 @@ public class EmpresaActivity extends AppCompatActivity {
         expListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-//                ArrayList<Modulo> modulos = daoEncuesta.getAllModulos(TipoActividad.ACTIVIDAD_EMPRESA);
-//                Modulo modulo = modulos.get(groupPosition);
-//                ArrayList<Pagina> paginas = dataComp.getPaginasxModulo(modulo.getID());
-//                int numPagina = Integer.parseInt(paginas.get(childPosition).get_id());
-//                if (numPagina < posicionFragment) setNombreSeccion(numPagina, -1);
-//                else setNombreSeccion(numPagina, 1);
-//                setPagina(numPagina, 1);
-//                posicionFragment = numPagina;
-//                dataComp.close();
+                ArrayList<Modulo> modulos = daoEncuesta.getAllModulos(TipoActividad.ACTIVIDAD_EMPRESA);
+                Modulo modulo = modulos.get(groupPosition);
+                ArrayList<Pagina> paginas = daoEncuesta.getPaginasxModulo(modulo.get_id());
+                int numPagina = Integer.parseInt(paginas.get(childPosition).getNumero());
+                if (numPagina < paginaActual) setNombreSeccion(numPagina, -1);
+                else setNombreSeccion(numPagina, 1);
+                setearPagina(numPagina, 1);
+                paginaActual = numPagina;
                 return false;
             }
         });
@@ -167,6 +224,11 @@ public class EmpresaActivity extends AppCompatActivity {
             fragmentTransaction.commit();
             idModuloActual = idModulo;
         }
+    }
+
+    public void ocultarTeclado(View view) {
+        InputMethodManager mgr = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        mgr.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
 }

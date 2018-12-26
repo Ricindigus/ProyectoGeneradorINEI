@@ -131,11 +131,12 @@ public class SQLConstantes {
 
 
     /** Tabla Modulos
-     *  -marco general de la encuesta
-     *  @_id: id comun
+     *  -modulos que componen una actividad en la encuesta
+     *  @id: id comun
+     *  @numero: numero
      *  @titulo: titulo del modulo que ira en la parte superior
      *  @cabecera: texto que aparece en el menu navigation view como cabecera de la lista desplegable
-     *  @tipo_actividad: 1,2,3 o 4 segun la actividad encuesta (vivienda,hogar,encuesta o empresa)
+     *  @tipo_actividad: 11,12,21,22,23 segun la actividad encuesta (caratula,empresa o vivienda,hogar,encuesta)
      * */
 
     public static final String tablamodulos = "modulos";
@@ -148,6 +149,15 @@ public class SQLConstantes {
 
 
 
+    /** Tabla Páginas
+     *  -paginas que componen un modulo en la encuesta
+     *  @id: id comun
+     *  @numero: numero de pagina
+     *  @modulo: id_modulo al que pertenece
+     *  @nombre: id_modulo al que pertenece
+     *  @tipo_actividad: 11,12,21,22,23 segun la actividad encuesta (caratula,empresa o vivienda,hogar,encuesta)
+     *  @tipo_pagina: 1 o 2 segun sea con componente normal o scrolleable (visitas,cruds,etc)
+     * */
     public static final String tablapaginas = "paginas";
 
     public static final String paginas_id = "_id";
@@ -158,6 +168,15 @@ public class SQLConstantes {
     public static final String paginas_tipo_pagina = "tipo_pagina";
 
 
+    /** Tabla Preguntas
+     *  -paginas que componen un modulo en la encuesta
+     *  @id: id de la pregunta
+     *  @modulo: id_modulo al que pertenece
+     *  @pagina: id_pagina al que pertenece
+     *  @numero: número de pregunta
+     *  @tipo_pregunta: 1 o 2 segun sea con componente normal o scrolleable (visitas,cruds,etc)
+     *  @tipo_actividad: 11,12,21,22,23 segun la actividad encuesta (caratula,empresa o vivienda,hogar,encuesta)
+     * */
 
     public static final String tablapreguntas = "preguntas";
 
@@ -165,7 +184,8 @@ public class SQLConstantes {
     public static final String preguntas_modulo = "modulo";
     public static final String preguntas_pagina = "pagina";
     public static final String preguntas_numero = "numero";
-    public static final String preguntas_tipo = "tipo";
+    public static final String preguntas_tipo_ = "tipo";
+    public static final String preguntas_tipo_actividad = "tipo_actividad";
 
 
     public static final String tablavariables = "variables";

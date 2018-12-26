@@ -677,6 +677,25 @@ public class DAOEncuesta {
         return paginas;
     }
 
+    public int getNroPaginas(String tipoActividad){
+        open();
+        int numero = 0;
+        String[] whereArgs = new String[]{tipoActividad};
+        Cursor cursor = null;
+        try{
+            cursor = sqLiteDatabase.query(SQLConstantes.tablapaginas,
+                    null,SQLConstantes.clausula_where_tipo_actividad,
+                    whereArgs,null,null,null);
+            if (cursor.getCount() > 0){
+                numero = cursor.getCount();
+            }
+        }finally{
+            if(cursor != null) cursor.close();
+        }
+        close();
+        return numero;
+    }
+
     public ArrayList<Pagina> getPaginasxModulo(String idModulo){
         open();
         ArrayList<Pagina> paginas =  new ArrayList<Pagina>();
