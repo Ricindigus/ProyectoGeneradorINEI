@@ -184,7 +184,7 @@ public class SQLConstantes {
     public static final String preguntas_modulo = "modulo";
     public static final String preguntas_pagina = "pagina";
     public static final String preguntas_numero = "numero";
-    public static final String preguntas_tipo_ = "tipo";
+    public static final String preguntas_tipo_pregunta = "tipo_pregunta";
     public static final String preguntas_tipo_actividad = "tipo_actividad";
 
 
@@ -376,6 +376,8 @@ public class SQLConstantes {
     public static final String clausula_where_numero_modulo = "numero=?";
     public static final String clausula_where_numero_pagina = "numero=?";
     public static final String clausula_where_modulo_pagina = "modulo=?";
+    public static final String clausula_where_pagina_pregunta = "pagina=?";
+
 
 
 

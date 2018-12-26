@@ -16,6 +16,7 @@ import java.util.ArrayList;
 
 import pe.gob.inei.generadorinei.model.pojos.Modulo;
 import pe.gob.inei.generadorinei.model.pojos.Pagina;
+import pe.gob.inei.generadorinei.model.pojos.Pregunta;
 
 public class DAOEncuesta {
     Context contexto;
@@ -719,6 +720,51 @@ public class DAOEncuesta {
         }
         close();
         return paginas;
+    }
+
+    public Pregunta getPregunta(String idPregunta){
+        Pregunta pregunta = new Pregunta();
+        String[] whereArgs = new String[]{idPregunta};
+        Cursor cursor = null;
+        try{
+            cursor = sqLiteDatabase.query(SQLConstantes.tablapreguntas,
+                    null,SQLConstantes.clausula_where_id,whereArgs,null,null,null);
+            if(cursor.getCount() == 1){
+                cursor.moveToFirst();
+                pregunta.set_id(cursor.getString(cursor.getColumnIndex(SQLConstantes.preguntas_id)));
+                pregunta.setModulo(cursor.getString(cursor.getColumnIndex(SQLConstantes.preguntas_modulo)));
+                pregunta.setPagina(cursor.getString(cursor.getColumnIndex(SQLConstantes.preguntas_pagina)));
+                pregunta.setNumero(cursor.getString(cursor.getColumnIndex(SQLConstantes.preguntas_numero)));
+                pregunta.setTipo_pregunta(cursor.getString(cursor.getColumnIndex(SQLConstantes.preguntas_tipo_pregunta)));
+                pregunta.setTipo_actividad(cursor.getString(cursor.getColumnIndex(SQLConstantes.preguntas_tipo_actividad)));
+            }
+        }finally{
+            if(cursor != null) cursor.close();
+        }
+        return pregunta;
+    }
+
+    public ArrayList<Pregunta> getPreguntasXPagina(String idPagina){
+        ArrayList<Pregunta> preguntas = new ArrayList<>();
+        String[] whereArgs = new String[]{idPagina};
+        Cursor cursor = null;
+        try{
+            cursor = sqLiteDatabase.query(SQLConstantes.tablapreguntas,
+                    null,SQLConstantes.clausula_where_pagina_pregunta,whereArgs,null,null,null);
+            while (cursor.moveToNext()){
+                Pregunta pregunta = new Pregunta();
+                pregunta.set_id(cursor.getString(cursor.getColumnIndex(SQLConstantes.preguntas_id)));
+                pregunta.setModulo(cursor.getString(cursor.getColumnIndex(SQLConstantes.preguntas_modulo)));
+                pregunta.setPagina(cursor.getString(cursor.getColumnIndex(SQLConstantes.preguntas_pagina)));
+                pregunta.setNumero(cursor.getString(cursor.getColumnIndex(SQLConstantes.preguntas_numero)));
+                pregunta.setTipo_pregunta(cursor.getString(cursor.getColumnIndex(SQLConstantes.preguntas_tipo_pregunta)));
+                pregunta.setTipo_actividad(cursor.getString(cursor.getColumnIndex(SQLConstantes.preguntas_tipo_actividad)));
+                preguntas.add(pregunta);
+            }
+        }finally{
+            if(cursor != null) cursor.close();
+        }
+        return preguntas;
     }
 
 

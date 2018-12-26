@@ -27,8 +27,10 @@ import pe.gob.inei.generadorinei.adapters.ExpandListAdapter;
 import pe.gob.inei.generadorinei.model.DAOEncuesta;
 import pe.gob.inei.generadorinei.model.pojos.Modulo;
 import pe.gob.inei.generadorinei.model.pojos.Pagina;
+import pe.gob.inei.generadorinei.model.pojos.Pregunta;
 import pe.gob.inei.generadorinei.util.NombreSeccionFragment;
 import pe.gob.inei.generadorinei.util.TipoActividad;
+import pe.gob.inei.generadorinei.util.TipoPagina;
 
 public class EmpresaActivity extends AppCompatActivity {
     ExpandableListView expListView;
@@ -116,11 +118,14 @@ public class EmpresaActivity extends AppCompatActivity {
 
     public void setearPagina(int numeroPagina, int direccion) {
         Pagina pagina = daoEncuesta.getPagina(numeroPagina+"",TipoActividad.ACTIVIDAD_EMPRESA);
-//        ArrayList<Pregunta> preguntas =  dataComponentes.getPreguntasXPagina(numeroPagina + "");
-//        if(preguntas.size() == 1){
-//            if (Integer.parseInt(preguntas.get(0).getTIPO()) == TipoComponente.VISITAS) setPaginaVisita(numeroPagina, direccion);
-//            else setPaginaNormal(numeroPagina, direccion);
-//        }else setPaginaNormal(numeroPagina, direccion);
+        if (pagina.getTipo_pagina().equals(TipoPagina.NORMAL)) setearPaginaNormal();
+        else setearPaginaScrolleable();
+    }
+
+    private void setearPaginaScrolleable() {
+    }
+
+    private void setearPaginaNormal() {
     }
 
     private boolean validoSetearPagina(int paginaActual) {
