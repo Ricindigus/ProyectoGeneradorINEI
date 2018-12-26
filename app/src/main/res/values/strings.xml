@@ -3,4 +3,6 @@
     <string name="texto_ingresar">INGRESAR</string>
     <string name="texto_usuario">USUARIO</string>
     <string name="texto_password">CONTRASEÑA</string>
+    <string name="navigation_drawer_open">open</string>
+    <string name="navigation_drawer_close">close</string>
 </resources>

@@ -14,6 +14,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 
+import pe.gob.inei.generadorinei.model.pojos.Modulo;
+import pe.gob.inei.generadorinei.model.pojos.Pagina;
+
 public class DAOEncuesta {
     Context contexto;
     SQLiteOpenHelper sqLiteOpenHelper;
@@ -570,4 +573,129 @@ public class DAOEncuesta {
         close();
         return filtrosMarco;
     }
+
+
+    public Modulo getModulo(String numModulo,String tipoActividad){
+        open();
+        Modulo modulo = new Modulo();
+        String[] whereArgs = new String[]{numModulo,tipoActividad};
+        Cursor cursor = null;
+        try{
+            cursor = sqLiteDatabase.query(SQLConstantes.tablamodulos,
+                    null,SQLConstantes.clausula_where_numero_modulo +
+                    " AND " + SQLConstantes.clausula_where_tipo_actividad,
+                    whereArgs,null,null,null);
+            if(cursor.getCount() == 1){
+                cursor.moveToFirst();
+                modulo.set_id(cursor.getString(cursor.getColumnIndex(SQLConstantes.modulos_id)));
+                modulo.setTitulo(cursor.getString(cursor.getColumnIndex(SQLConstantes.modulos_titulo)));
+                modulo.setCabecera(cursor.getString(cursor.getColumnIndex(SQLConstantes.modulos_cabecera)));
+                modulo.setNumero(cursor.getString(cursor.getColumnIndex(SQLConstantes.modulos_numero)));
+                modulo.setTipo_actividad(cursor.getString(cursor.getColumnIndex(SQLConstantes.modulos_tipo_actividad)));
+            }
+        }finally {
+            if(cursor != null) cursor.close();
+        }
+        close();
+        return modulo;
+    }
+
+    public ArrayList<Modulo> getAllModulos(String tipoActividad){
+        open();
+        ArrayList<Modulo> modulos = new ArrayList<Modulo>();
+        String[] whereArgs = new String[]{tipoActividad};
+        Cursor cursor = null;
+        try{
+            cursor = sqLiteDatabase.query(SQLConstantes.tablamodulos,
+                    null,SQLConstantes.clausula_where_tipo_actividad,
+                    whereArgs,null,null,null);
+            while(cursor.moveToNext()){
+                Modulo modulo = new Modulo();
+                modulo.set_id(cursor.getString(cursor.getColumnIndex(SQLConstantes.modulos_id)));
+                modulo.setTitulo(cursor.getString(cursor.getColumnIndex(SQLConstantes.modulos_titulo)));
+                modulo.setCabecera(cursor.getString(cursor.getColumnIndex(SQLConstantes.modulos_cabecera)));
+                modulo.setNumero(cursor.getString(cursor.getColumnIndex(SQLConstantes.modulos_numero)));
+                modulo.setTipo_actividad(cursor.getString(cursor.getColumnIndex(SQLConstantes.modulos_tipo_actividad)));
+                modulos.add(modulo);
+            }
+        }finally {
+            if(cursor != null) cursor.close();
+        }
+        close();
+        return modulos;
+    }
+
+    public Pagina getPagina(String numPagina,String tipoActividad){
+        open();
+        Pagina pagina = new Pagina();
+        String[] whereArgs = new String[]{numPagina,tipoActividad};
+        Cursor cursor = null;
+        try{
+            cursor = sqLiteDatabase.query(SQLConstantes.tablapaginas,
+                    null,SQLConstantes.clausula_where_numero_pagina +
+                            " AND " + SQLConstantes.clausula_where_tipo_actividad,
+                    whereArgs,null,null,null);
+            if(cursor.getCount() == 1){
+                cursor.moveToFirst();
+                pagina.set_id(cursor.getString(cursor.getColumnIndex(SQLConstantes.paginas_id)));
+                pagina.setModulo(cursor.getString(cursor.getColumnIndex(SQLConstantes.paginas_modulo)));
+                pagina.setNumero(cursor.getString(cursor.getColumnIndex(SQLConstantes.paginas_numero)));
+                pagina.setTipo_actividad(cursor.getString(cursor.getColumnIndex(SQLConstantes.paginas_tipo_actividad)));
+            }
+        }finally{
+            if(cursor != null) cursor.close();
+        }
+        close();
+        return pagina;
+    }
+
+    public ArrayList<Pagina> getAllPaginas(String tipoActividad){
+        open();
+        ArrayList<Pagina> paginas = new ArrayList<>();
+        String[] whereArgs = new String[]{tipoActividad};
+        Cursor cursor = null;
+        try{
+            cursor = sqLiteDatabase.query(SQLConstantes.tablapaginas,
+                    null,SQLConstantes.clausula_where_tipo_actividad,
+                    whereArgs,null,null,null);
+            while (cursor.moveToNext()){
+                Pagina pagina = new Pagina();
+                pagina.set_id(cursor.getString(cursor.getColumnIndex(SQLConstantes.paginas_id)));
+                pagina.setModulo(cursor.getString(cursor.getColumnIndex(SQLConstantes.paginas_modulo)));
+                pagina.setNumero(cursor.getString(cursor.getColumnIndex(SQLConstantes.paginas_numero)));
+                pagina.setTipo_actividad(cursor.getString(cursor.getColumnIndex(SQLConstantes.paginas_tipo_actividad)));
+                paginas.add(pagina);
+            }
+        }finally{
+            if(cursor != null) cursor.close();
+        }
+        close();
+        return paginas;
+    }
+
+    public ArrayList<Pagina> getPaginasxModulo(String idModulo){
+        open();
+        ArrayList<Pagina> paginas =  new ArrayList<Pagina>();
+        String[] whereArgs = new String[]{idModulo};
+        Cursor cursor = null;
+        try{
+            cursor = sqLiteDatabase.query(SQLConstantes.tablapaginas,
+                    null,SQLConstantes.clausula_where_modulo_pagina,whereArgs,null,null,null);
+            while(cursor.moveToNext()){
+                Pagina pagina = new Pagina();
+                pagina.set_id(cursor.getString(cursor.getColumnIndex(SQLConstantes.paginas_id)));
+                pagina.setModulo(cursor.getString(cursor.getColumnIndex(SQLConstantes.paginas_modulo)));
+                pagina.setNumero(cursor.getString(cursor.getColumnIndex(SQLConstantes.paginas_numero)));
+                pagina.setNombre(cursor.getString(cursor.getColumnIndex(SQLConstantes.paginas_nombre)));
+                pagina.setTipo_actividad(cursor.getString(cursor.getColumnIndex(SQLConstantes.paginas_tipo_actividad)));
+                paginas.add(pagina);
+            }
+        }finally{
+            if(cursor != null) cursor.close();
+        }
+        close();
+        return paginas;
+    }
+
+
 }

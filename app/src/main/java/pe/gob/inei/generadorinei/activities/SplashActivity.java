@@ -13,6 +13,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import pe.gob.inei.generadorinei.R;
+import pe.gob.inei.generadorinei.activities.empresas.EmpresaActivity;
 import pe.gob.inei.generadorinei.model.DAOEncuesta;
 
 public class SplashActivity extends AppCompatActivity {
@@ -33,7 +34,8 @@ public class SplashActivity extends AppCompatActivity {
             TimerTask timerTask = new TimerTask() {
                 @Override
                 public void run() {
-                    Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+//                    Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+                    Intent intent = new Intent(getApplicationContext(),EmpresaActivity.class);
                     startActivity(intent);
                     finish();
                 }
@@ -80,7 +82,7 @@ public class SplashActivity extends AppCompatActivity {
             TimerTask timerTask = new TimerTask() {
                 @Override
                 public void run() {
-                    Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+                    Intent intent = new Intent(getApplicationContext(),EmpresaActivity.class);
                     startActivity(intent);
                     finish();
                 }

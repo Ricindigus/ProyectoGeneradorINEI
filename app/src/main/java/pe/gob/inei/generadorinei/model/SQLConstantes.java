@@ -130,14 +130,21 @@ public class SQLConstantes {
 
 
 
-
+    /** Tabla Modulos
+     *  -marco general de la encuesta
+     *  @_id: id comun
+     *  @titulo: titulo del modulo que ira en la parte superior
+     *  @cabecera: texto que aparece en el menu navigation view como cabecera de la lista desplegable
+     *  @tipo_actividad: 1,2,3 o 4 segun la actividad encuesta (vivienda,hogar,encuesta o empresa)
+     * */
 
     public static final String tablamodulos = "modulos";
 
     public static final String modulos_id = "_id";
+    public static final String modulos_numero = "numero";
     public static final String modulos_titulo = "titulo";
     public static final String modulos_cabecera = "cabecera";
-    public static final String modulos_tipo_encuesta = "tipo_encuesta";
+    public static final String modulos_tipo_actividad = "tipo_actividad";
 
 
 
@@ -146,7 +153,8 @@ public class SQLConstantes {
     public static final String paginas_id = "_id";
     public static final String paginas_numero = "numero";
     public static final String paginas_modulo = "modulo";
-    public static final String paginas_tipo_encuesta = "tipo_encuesta";
+    public static final String paginas_nombre = "nombre";
+    public static final String paginas_tipo_actividad = "tipo_actividad";
 
 
     public static final String tablapreguntas = "preguntas";
@@ -342,6 +350,13 @@ public class SQLConstantes {
     /** Clausulas WHERE * */
     public static final String clausula_where_id = "_id=?";
     public static final String clausula_where_encuestador = "encuestador=?";
+    public static final String clausula_where_tipo_actividad = "tipo_actividad=?";
+    public static final String clausula_where_numero_modulo = "numero=?";
+    public static final String clausula_where_numero_pagina = "numero=?";
+    public static final String clausula_where_modulo_pagina = "modulo=?";
+
+
+
 
 
 }

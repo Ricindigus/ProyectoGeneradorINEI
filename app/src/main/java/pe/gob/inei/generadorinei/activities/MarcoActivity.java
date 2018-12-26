@@ -86,7 +86,7 @@ public class MarcoActivity extends AppCompatActivity {
         lytFiltro3 = findViewById(R.id.filtro3);
         lytFiltro4 = findViewById(R.id.filtro4);
         btnMostrarTodo = findViewById(R.id.marco_btnMotrarTodo);
-        toolbar = findViewById(R.id.marco_toolbar);
+        toolbar = findViewById(R.id.my_toolbar);
         recyclerView = findViewById(R.id.rvItemsMarco);
     }
 
