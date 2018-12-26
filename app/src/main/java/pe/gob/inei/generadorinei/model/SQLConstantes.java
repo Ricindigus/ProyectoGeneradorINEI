@@ -155,6 +155,8 @@ public class SQLConstantes {
     public static final String paginas_modulo = "modulo";
     public static final String paginas_nombre = "nombre";
     public static final String paginas_tipo_actividad = "tipo_actividad";
+    public static final String paginas_tipo_pagina = "tipo_pagina";
+
 
 
     public static final String tablapreguntas = "preguntas";

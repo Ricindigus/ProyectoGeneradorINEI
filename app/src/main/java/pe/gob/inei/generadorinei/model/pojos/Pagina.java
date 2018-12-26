@@ -6,13 +6,16 @@ public class Pagina {
     private String modulo;
     private String tipo_actividad;
     private String nombre;
+    private String tipo_pagina;
 
-    public Pagina(String _id, String numero, String modulo, String tipo_actividad, String nombre) {
+
+    public Pagina(String _id, String numero, String modulo, String tipo_actividad, String nombre, String tipo_pagina) {
         this._id = _id;
         this.numero = numero;
         this.modulo = modulo;
         this.tipo_actividad = tipo_actividad;
         this.nombre = nombre;
+        this.tipo_pagina = tipo_pagina;
     }
 
     public Pagina() {
@@ -56,5 +59,13 @@ public class Pagina {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public String getTipo_pagina() {
+        return tipo_pagina;
+    }
+
+    public void setTipo_pagina(String tipo_pagina) {
+        this.tipo_pagina = tipo_pagina;
     }
 }

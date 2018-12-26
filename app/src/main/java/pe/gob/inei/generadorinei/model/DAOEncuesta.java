@@ -640,7 +640,9 @@ public class DAOEncuesta {
                 pagina.set_id(cursor.getString(cursor.getColumnIndex(SQLConstantes.paginas_id)));
                 pagina.setModulo(cursor.getString(cursor.getColumnIndex(SQLConstantes.paginas_modulo)));
                 pagina.setNumero(cursor.getString(cursor.getColumnIndex(SQLConstantes.paginas_numero)));
+                pagina.setNombre(cursor.getString(cursor.getColumnIndex(SQLConstantes.paginas_nombre)));
                 pagina.setTipo_actividad(cursor.getString(cursor.getColumnIndex(SQLConstantes.paginas_tipo_actividad)));
+                pagina.setTipo_pagina(cursor.getString(cursor.getColumnIndex(SQLConstantes.paginas_tipo_pagina)));
             }
         }finally{
             if(cursor != null) cursor.close();
@@ -663,7 +665,9 @@ public class DAOEncuesta {
                 pagina.set_id(cursor.getString(cursor.getColumnIndex(SQLConstantes.paginas_id)));
                 pagina.setModulo(cursor.getString(cursor.getColumnIndex(SQLConstantes.paginas_modulo)));
                 pagina.setNumero(cursor.getString(cursor.getColumnIndex(SQLConstantes.paginas_numero)));
+                pagina.setNombre(cursor.getString(cursor.getColumnIndex(SQLConstantes.paginas_nombre)));
                 pagina.setTipo_actividad(cursor.getString(cursor.getColumnIndex(SQLConstantes.paginas_tipo_actividad)));
+                pagina.setTipo_pagina(cursor.getString(cursor.getColumnIndex(SQLConstantes.paginas_tipo_pagina)));
                 paginas.add(pagina);
             }
         }finally{
@@ -688,6 +692,7 @@ public class DAOEncuesta {
                 pagina.setNumero(cursor.getString(cursor.getColumnIndex(SQLConstantes.paginas_numero)));
                 pagina.setNombre(cursor.getString(cursor.getColumnIndex(SQLConstantes.paginas_nombre)));
                 pagina.setTipo_actividad(cursor.getString(cursor.getColumnIndex(SQLConstantes.paginas_tipo_actividad)));
+                pagina.setTipo_pagina(cursor.getString(cursor.getColumnIndex(SQLConstantes.paginas_tipo_pagina)));
                 paginas.add(pagina);
             }
         }finally{
