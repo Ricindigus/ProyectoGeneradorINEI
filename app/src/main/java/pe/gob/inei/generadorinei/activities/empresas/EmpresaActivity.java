@@ -23,7 +23,6 @@ import java.util.List;
 import java.util.Map;
 
 import pe.gob.inei.generadorinei.R;
-import pe.gob.inei.generadorinei.activities.hogares.EncuestaActivity;
 import pe.gob.inei.generadorinei.adapters.ExpandListAdapter;
 import pe.gob.inei.generadorinei.fragments.CheckBoxFragment;
 import pe.gob.inei.generadorinei.fragments.EditTextFragment;
@@ -32,7 +31,6 @@ import pe.gob.inei.generadorinei.model.dao.DAOEncuesta;
 import pe.gob.inei.generadorinei.model.pojos.componentes.PCheckbox;
 import pe.gob.inei.generadorinei.model.pojos.componentes.PEditText;
 import pe.gob.inei.generadorinei.model.pojos.componentes.PRadio;
-import pe.gob.inei.generadorinei.model.pojos.componentes.PUbicacion;
 import pe.gob.inei.generadorinei.model.pojos.componentes.SPCheckbox;
 import pe.gob.inei.generadorinei.model.pojos.componentes.SPEdittext;
 import pe.gob.inei.generadorinei.model.pojos.componentes.SPRadio;
@@ -75,7 +73,7 @@ public class EmpresaActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_empresa);
+        setContentView(R.layout.layout_activities_encuesta);
         daoEncuesta = new DAOEncuesta(this);
         tituloEncuesta = daoEncuesta.getEncuesta().getTitulo();
         numeroPaginasTotal = daoEncuesta.getNroPaginas(TipoActividad.ACTIVIDAD_EMPRESA);

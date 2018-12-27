@@ -24,7 +24,6 @@
         <activity android:name=".activities.hogares.EncuestaActivity" />
         <activity android:name=".activities.hogares.ViviendaActivity" />
         <activity android:name=".activities.hogares.HogarActivity" />
-        <activity android:name=".activities.empresas.CaratulaActivity"></activity>
     </application>
 
 </manifest>
