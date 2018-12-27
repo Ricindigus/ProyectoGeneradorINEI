@@ -12,8 +12,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import pe.gob.inei.generadorinei.R;
-import pe.gob.inei.generadorinei.model.CamposMarco;
-import pe.gob.inei.generadorinei.model.ItemMarco;
+import pe.gob.inei.generadorinei.model.pojos.encuesta.CamposMarco;
+import pe.gob.inei.generadorinei.model.pojos.encuesta.ItemMarco;
 
 
 /**

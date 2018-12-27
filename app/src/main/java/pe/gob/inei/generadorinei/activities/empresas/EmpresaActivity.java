@@ -1,8 +1,8 @@
 package pe.gob.inei.generadorinei.activities.empresas;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
@@ -23,13 +23,25 @@ import java.util.List;
 import java.util.Map;
 
 import pe.gob.inei.generadorinei.R;
+import pe.gob.inei.generadorinei.activities.hogares.EncuestaActivity;
 import pe.gob.inei.generadorinei.adapters.ExpandListAdapter;
-import pe.gob.inei.generadorinei.model.DAOEncuesta;
-import pe.gob.inei.generadorinei.model.pojos.Modulo;
-import pe.gob.inei.generadorinei.model.pojos.Pagina;
-import pe.gob.inei.generadorinei.model.pojos.Pregunta;
+import pe.gob.inei.generadorinei.fragments.CheckBoxFragment;
+import pe.gob.inei.generadorinei.fragments.EditTextFragment;
+import pe.gob.inei.generadorinei.fragments.RadioFragment;
+import pe.gob.inei.generadorinei.model.dao.DAOEncuesta;
+import pe.gob.inei.generadorinei.model.pojos.componentes.PCheckbox;
+import pe.gob.inei.generadorinei.model.pojos.componentes.PEditText;
+import pe.gob.inei.generadorinei.model.pojos.componentes.PRadio;
+import pe.gob.inei.generadorinei.model.pojos.componentes.PUbicacion;
+import pe.gob.inei.generadorinei.model.pojos.componentes.SPCheckbox;
+import pe.gob.inei.generadorinei.model.pojos.componentes.SPEdittext;
+import pe.gob.inei.generadorinei.model.pojos.componentes.SPRadio;
+import pe.gob.inei.generadorinei.model.pojos.encuesta.Modulo;
+import pe.gob.inei.generadorinei.model.pojos.encuesta.Pagina;
+import pe.gob.inei.generadorinei.model.pojos.encuesta.Pregunta;
 import pe.gob.inei.generadorinei.util.NombreSeccionFragment;
 import pe.gob.inei.generadorinei.util.TipoActividad;
+import pe.gob.inei.generadorinei.util.TipoComponente;
 import pe.gob.inei.generadorinei.util.TipoPagina;
 
 public class EmpresaActivity extends AppCompatActivity {
@@ -58,6 +70,7 @@ public class EmpresaActivity extends AppCompatActivity {
     String idModuloActual = "";
     int paginaActual = 1;
     int numeroPaginasTotal;
+    Fragment fragmentComponente = new Fragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +96,7 @@ public class EmpresaActivity extends AppCompatActivity {
                     do{
                         paginaActual--;
                     }while(!validoSetearPagina(paginaActual));
-//                    setearPagina(paginaActual, -1);
+                    setearPagina(paginaActual);
                     setNombreSeccion(paginaActual, -1);
                 }
 
@@ -100,13 +113,14 @@ public class EmpresaActivity extends AppCompatActivity {
                         if (paginaActual + 1 <= numeroPaginasTotal) paginaActual++;
                         else paginaActual = 1;
                     }while(!validoSetearPagina(paginaActual));
-//                    setearPagina(paginaActual, 1);
+                    setearPagina(paginaActual);
                     setNombreSeccion(paginaActual, 1);
                 }
             }
         });
 
         setNombreSeccion(1, 1);
+        setearPagina(1);
     }
 
     private boolean validarPagina(int paginaActual) {
@@ -116,16 +130,59 @@ public class EmpresaActivity extends AppCompatActivity {
     private void guardarPagina(int paginaActual) {
     }
 
-    public void setearPagina(int numeroPagina, int direccion) {
+    public void setearPagina(int numeroPagina) {
         Pagina pagina = daoEncuesta.getPagina(numeroPagina+"",TipoActividad.ACTIVIDAD_EMPRESA);
-        if (pagina.getTipo_pagina().equals(TipoPagina.NORMAL)) setearPaginaNormal();
-        else setearPaginaScrolleable();
+        if (pagina.getTipo_pagina().equals(TipoPagina.NORMAL)) setearPaginaNormal(pagina);
+        else setearPaginaScrolleable(pagina);
     }
 
-    private void setearPaginaScrolleable() {
+    private void setearPaginaScrolleable(Pagina pagina) {
     }
 
-    private void setearPaginaNormal() {
+    private void setearPaginaNormal(Pagina pagina) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        if (layoutScrolleable.getVisibility() == View.VISIBLE) {
+            fragmentTransaction.remove(fragmentManager.findFragmentById(R.id.layout_componente_scrolleable));
+            layoutScrolleable.setVisibility(View.GONE);
+        }
+
+        ArrayList<Pregunta> preguntas = daoEncuesta.getPreguntasXPagina(pagina.get_id());
+        int[] layouts = {R.id.layout_componente1, R.id.layout_componente2, R.id.layout_componente3, R.id.layout_componente4, R.id.layout_componente5,
+                R.id.layout_componente6, R.id.layout_componente7, R.id.layout_componente8, R.id.layout_componente9, R.id.layout_componente10};
+        for (int i = 0; i < layouts.length; i++) {
+            if (i<preguntas.size()) {
+                int tipo = Integer.parseInt(preguntas.get(i).getTipo_pregunta());
+                switch (tipo) {
+                    case TipoComponente.EDITTEXT:
+                        PEditText pEditText = daoEncuesta.getPEditText(preguntas.get(i).get_id());
+                        ArrayList<SPEdittext> spEditTexts = daoEncuesta.getSPEditTexts(preguntas.get(i).get_id());
+                        EditTextFragment editTextFragment = new EditTextFragment(pEditText, spEditTexts, EmpresaActivity.this, encuestado);
+                        fragmentComponente = editTextFragment;
+                        break;
+                    case TipoComponente.CHECKBOX:
+                        PCheckbox pCheckbox = daoEncuesta.getPCheckbox(preguntas.get(i).get_id());
+                        ArrayList<SPCheckbox> spCheckBoxes = daoEncuesta.getSPCheckBoxs(preguntas.get(i).get_id());
+                        CheckBoxFragment checkBoxFragment = new CheckBoxFragment(pCheckbox, spCheckBoxes, EmpresaActivity.this, encuestado);
+                        fragmentComponente = checkBoxFragment;
+                        break;
+                    case TipoComponente.RADIO:
+                        PRadio pRadio = daoEncuesta.getPRadio(preguntas.get(i).get_id());
+                        ArrayList<SPRadio> spRadios = daoEncuesta.getSPRadios(preguntas.get(i).get_id());
+                        RadioFragment radioFragment = new RadioFragment(pRadio, spRadios, EmpresaActivity.this, encuestado);
+                        fragmentComponente = radioFragment;
+                        break;
+                }
+                fragmentTransaction.replace(layouts[i], fragmentComponente, preguntas.get(i).get_id());
+            } else {
+                if (fragmentManager.findFragmentById(layouts[i]) != null) {
+                    fragmentTransaction.remove(fragmentManager.findFragmentById(layouts[i]));
+                }
+            }
+        }
+
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 
     private boolean validoSetearPagina(int paginaActual) {
@@ -186,7 +243,7 @@ public class EmpresaActivity extends AppCompatActivity {
                 int numPagina = Integer.parseInt(paginas.get(childPosition).getNumero());
                 if (numPagina < paginaActual) setNombreSeccion(numPagina, -1);
                 else setNombreSeccion(numPagina, 1);
-                setearPagina(numPagina, 1);
+                setearPagina(numPagina);
                 paginaActual = numPagina;
                 return false;
             }
