@@ -69,6 +69,7 @@ public class EmpresaActivity extends AppCompatActivity {
     int paginaActual = 1;
     int numeroPaginasTotal;
     Fragment fragmentComponente = new Fragment();
+    final String TIPO_ACTIVIDAD = TipoActividad.ACTIVIDAD_EMPRESA;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +80,7 @@ public class EmpresaActivity extends AppCompatActivity {
 
         daoEncuesta = new DAOEncuesta(this);
         tituloEncuesta = daoEncuesta.getEncuesta().getTitulo();
-        numeroPaginasTotal = daoEncuesta.getNroPaginas(TipoActividad.ACTIVIDAD_EMPRESA);
+        numeroPaginasTotal = daoEncuesta.getNroPaginas(TIPO_ACTIVIDAD);
         conectarVistas();
         setSupportActionBar(toolbar);
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -132,7 +133,7 @@ public class EmpresaActivity extends AppCompatActivity {
     }
 
     public void setearPagina(int numeroPagina) {
-        Pagina pagina = daoEncuesta.getPagina(numeroPagina+"",TipoActividad.ACTIVIDAD_EMPRESA);
+        Pagina pagina = daoEncuesta.getPagina(numeroPagina+"",TIPO_ACTIVIDAD);
         if (pagina.getTipo_pagina().equals(TipoPagina.NORMAL)) setearPaginaNormal(pagina);
         else setearPaginaScrolleable(pagina);
     }
@@ -238,7 +239,7 @@ public class EmpresaActivity extends AppCompatActivity {
         expListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-                ArrayList<Modulo> modulos = daoEncuesta.getAllModulos(TipoActividad.ACTIVIDAD_EMPRESA);
+                ArrayList<Modulo> modulos = daoEncuesta.getAllModulos(TIPO_ACTIVIDAD);
                 Modulo modulo = modulos.get(groupPosition);
                 ArrayList<Pagina> paginas = daoEncuesta.getPaginasxModulo(modulo.get_id());
                 int numPagina = Integer.parseInt(paginas.get(childPosition).getNumero());
@@ -253,7 +254,7 @@ public class EmpresaActivity extends AppCompatActivity {
 
     private void prepareListData(List<String> listDataHeader, Map<String, List<String>> listDataChild) {
 
-        ArrayList<Modulo> modulos = daoEncuesta.getAllModulos(TipoActividad.ACTIVIDAD_EMPRESA);
+        ArrayList<Modulo> modulos = daoEncuesta.getAllModulos(TIPO_ACTIVIDAD);
         for (Modulo moduloActual : modulos) {
             //pone la cabecera
             listDataHeader.add(moduloActual.getCabecera());
@@ -271,9 +272,9 @@ public class EmpresaActivity extends AppCompatActivity {
     public void setNombreSeccion(int nPagina, int direccion) {
         String nombreSeccion = "";
         int numeroDePagina = nPagina;
-        String idModulo = daoEncuesta.getPagina(numeroDePagina + "",TipoActividad.ACTIVIDAD_EMPRESA).getModulo();
+        String idModulo = daoEncuesta.getPagina(numeroDePagina + "",TIPO_ACTIVIDAD).getModulo();
         if (!idModulo.equals(idModuloActual)) {
-            nombreSeccion = daoEncuesta.getModulo(idModulo,TipoActividad.ACTIVIDAD_EMPRESA).getTitulo();
+            nombreSeccion = daoEncuesta.getModulo(idModulo,TIPO_ACTIVIDAD).getTitulo();
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             if (direccion > 0) {
