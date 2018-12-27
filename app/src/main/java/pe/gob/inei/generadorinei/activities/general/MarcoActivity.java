@@ -1,5 +1,6 @@
 package pe.gob.inei.generadorinei.activities.general;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,11 +17,14 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import pe.gob.inei.generadorinei.R;
+import pe.gob.inei.generadorinei.activities.empresas.EmpresaActivity;
+import pe.gob.inei.generadorinei.activities.hogares.ViviendaActivity;
 import pe.gob.inei.generadorinei.adapters.MarcoAdapter;
 import pe.gob.inei.generadorinei.model.pojos.encuesta.CamposMarco;
 import pe.gob.inei.generadorinei.model.dao.DAOEncuesta;
 import pe.gob.inei.generadorinei.model.pojos.encuesta.FiltrosMarco;
 import pe.gob.inei.generadorinei.model.pojos.encuesta.ItemMarco;
+import pe.gob.inei.generadorinei.util.TipoEncuesta;
 
 
 public class MarcoActivity extends AppCompatActivity {
@@ -263,8 +267,22 @@ public class MarcoActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         marcoAdapter = new MarcoAdapter(daoEncuesta.getCamposMarco(), new MarcoAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(View view, int position) {
-
+            public void onItemClick(View view, int position, String idEncuestado) {
+                final int tipoEncuesta = Integer.parseInt(daoEncuesta.getEncuesta().getTipo());
+                switch (tipoEncuesta){
+                    case TipoEncuesta.EMPRESA:
+                        Intent intent1 = new Intent(MarcoActivity.this, EmpresaActivity.class);
+                        intent1.putExtra("idUsuario",idUsuario);
+                        intent1.putExtra("idEmpresa",idEncuestado);
+                        startActivity(intent1);
+                        break;
+                    case TipoEncuesta.HOGAR:
+                        Intent intent2 = new Intent(MarcoActivity.this, ViviendaActivity.class);
+                        intent2.putExtra("idUsuario",idUsuario);
+                        intent2.putExtra("idVivienda",idEncuestado);
+                        startActivity(intent2);
+                        break;
+                }
             }
         });
         recyclerView.setAdapter(marcoAdapter);

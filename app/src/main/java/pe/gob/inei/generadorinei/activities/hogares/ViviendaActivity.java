@@ -56,8 +56,8 @@ public class ViviendaActivity extends AppCompatActivity {
     DAOEncuesta daoEncuesta;
 
     String tituloEncuesta;
-    String usuario = "ENC0001";
-    String encuestado = "1266";
+    String idVivienda;
+    String idUsuario;
     ArrayList<Modulo> modulos;
 
     LinearLayout layoutScrolleable, lytComponente1,
@@ -70,14 +70,19 @@ public class ViviendaActivity extends AppCompatActivity {
     int paginaActual = 1;
     int numeroPaginasTotal;
     Fragment fragmentComponente = new Fragment();
+    final String TIPO_ACTIVIDAD = TipoActividad.ACTIVIDAD_VIVIENDA;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_activities_encuesta);
+
+        idUsuario = getIntent().getExtras().getString("idUsuario");
+        idVivienda = getIntent().getExtras().getString("idVivienda");
+
         daoEncuesta = new DAOEncuesta(this);
         tituloEncuesta = daoEncuesta.getEncuesta().getTitulo();
-        numeroPaginasTotal = daoEncuesta.getNroPaginas(TipoActividad.ACTIVIDAD_EMPRESA);
+        numeroPaginasTotal = daoEncuesta.getNroPaginas(TIPO_ACTIVIDAD);
         conectarVistas();
         setSupportActionBar(toolbar);
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -130,12 +135,13 @@ public class ViviendaActivity extends AppCompatActivity {
     }
 
     public void setearPagina(int numeroPagina) {
-        Pagina pagina = daoEncuesta.getPagina(numeroPagina+"",TipoActividad.ACTIVIDAD_EMPRESA);
+        Pagina pagina = daoEncuesta.getPagina(numeroPagina+"",TIPO_ACTIVIDAD);
         if (pagina.getTipo_pagina().equals(TipoPagina.NORMAL)) setearPaginaNormal(pagina);
         else setearPaginaScrolleable(pagina);
     }
 
     private void setearPaginaScrolleable(Pagina pagina) {
+
     }
 
     private void setearPaginaNormal(Pagina pagina) {
@@ -156,19 +162,19 @@ public class ViviendaActivity extends AppCompatActivity {
                     case TipoComponente.EDITTEXT:
                         PEditText pEditText = daoEncuesta.getPEditText(preguntas.get(i).get_id());
                         ArrayList<SPEdittext> spEditTexts = daoEncuesta.getSPEditTexts(preguntas.get(i).get_id());
-                        EditTextFragment editTextFragment = new EditTextFragment(pEditText, spEditTexts, ViviendaActivity.this, encuestado);
+                        EditTextFragment editTextFragment = new EditTextFragment(pEditText, spEditTexts, ViviendaActivity.this, idVivienda);
                         fragmentComponente = editTextFragment;
                         break;
                     case TipoComponente.CHECKBOX:
                         PCheckbox pCheckbox = daoEncuesta.getPCheckbox(preguntas.get(i).get_id());
                         ArrayList<SPCheckbox> spCheckBoxes = daoEncuesta.getSPCheckBoxs(preguntas.get(i).get_id());
-                        CheckBoxFragment checkBoxFragment = new CheckBoxFragment(pCheckbox, spCheckBoxes, ViviendaActivity.this, encuestado);
+                        CheckBoxFragment checkBoxFragment = new CheckBoxFragment(pCheckbox, spCheckBoxes, ViviendaActivity.this, idVivienda);
                         fragmentComponente = checkBoxFragment;
                         break;
                     case TipoComponente.RADIO:
                         PRadio pRadio = daoEncuesta.getPRadio(preguntas.get(i).get_id());
                         ArrayList<SPRadio> spRadios = daoEncuesta.getSPRadios(preguntas.get(i).get_id());
-                        RadioFragment radioFragment = new RadioFragment(pRadio, spRadios, ViviendaActivity.this, encuestado);
+                        RadioFragment radioFragment = new RadioFragment(pRadio, spRadios, ViviendaActivity.this, idVivienda);
                         fragmentComponente = radioFragment;
                         break;
                 }
@@ -194,8 +200,8 @@ public class ViviendaActivity extends AppCompatActivity {
         TextView txtHeaderEncuestado = (TextView) headerView.findViewById(R.id.header_txtEncuestado);
         TextView txtHeaderUsuario = (TextView) headerView.findViewById(R.id.header_txtUsuario);
         txtHeaderTitulo.setText(tituloEncuesta);
-        txtHeaderEncuestado.setText("Empresa " + encuestado);
-        txtHeaderUsuario.setText("Usuario: " + usuario);
+        txtHeaderEncuestado.setText("Vivienda " + idVivienda);
+        txtHeaderUsuario.setText("Usuario: " + idUsuario);
     }
 
     private void conectarVistas() {
@@ -236,7 +242,7 @@ public class ViviendaActivity extends AppCompatActivity {
         expListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-                ArrayList<Modulo> modulos = daoEncuesta.getAllModulos(TipoActividad.ACTIVIDAD_EMPRESA);
+                ArrayList<Modulo> modulos = daoEncuesta.getAllModulos(TIPO_ACTIVIDAD);
                 Modulo modulo = modulos.get(groupPosition);
                 ArrayList<Pagina> paginas = daoEncuesta.getPaginasxModulo(modulo.get_id());
                 int numPagina = Integer.parseInt(paginas.get(childPosition).getNumero());
@@ -251,7 +257,7 @@ public class ViviendaActivity extends AppCompatActivity {
 
     private void prepareListData(List<String> listDataHeader, Map<String, List<String>> listDataChild) {
 
-        ArrayList<Modulo> modulos = daoEncuesta.getAllModulos(TipoActividad.ACTIVIDAD_EMPRESA);
+        ArrayList<Modulo> modulos = daoEncuesta.getAllModulos(TIPO_ACTIVIDAD);
         for (Modulo moduloActual : modulos) {
             //pone la cabecera
             listDataHeader.add(moduloActual.getCabecera());
@@ -269,9 +275,9 @@ public class ViviendaActivity extends AppCompatActivity {
     public void setNombreSeccion(int nPagina, int direccion) {
         String nombreSeccion = "";
         int numeroDePagina = nPagina;
-        String idModulo = daoEncuesta.getPagina(numeroDePagina + "",TipoActividad.ACTIVIDAD_EMPRESA).getModulo();
+        String idModulo = daoEncuesta.getPagina(numeroDePagina + "",TIPO_ACTIVIDAD).getModulo();
         if (!idModulo.equals(idModuloActual)) {
-            nombreSeccion = daoEncuesta.getModulo(idModulo,TipoActividad.ACTIVIDAD_EMPRESA).getTitulo();
+            nombreSeccion = daoEncuesta.getModulo(idModulo,TIPO_ACTIVIDAD).getTitulo();
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             if (direccion > 0) {

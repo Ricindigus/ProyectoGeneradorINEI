@@ -27,7 +27,7 @@ public class MarcoAdapter extends RecyclerView.Adapter<MarcoAdapter.ItemMarcoHol
 
 
     public interface OnItemClickListener {
-        public void onItemClick(View view, int position);
+        public void onItemClick(View view, int position, String idEncuestado);
     }
 
     public MarcoAdapter(CamposMarco camposMarco, OnItemClickListener onItemClickListener) {
@@ -62,7 +62,7 @@ public class MarcoAdapter extends RecyclerView.Adapter<MarcoAdapter.ItemMarcoHol
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onItemClickListener.onItemClick(view, position);
+                onItemClickListener.onItemClick(view, position, items.get(position).getCampo1());
             }
         });
     }

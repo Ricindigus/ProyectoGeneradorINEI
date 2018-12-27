@@ -55,8 +55,8 @@ public class EmpresaActivity extends AppCompatActivity {
     DAOEncuesta daoEncuesta;
 
     String tituloEncuesta;
-    String usuario = "ENC0001";
-    String encuestado = "1266";
+    String idUsuario;
+    String idEmpresa;
     ArrayList<Modulo> modulos;
 
     LinearLayout layoutScrolleable, lytComponente1,
@@ -74,6 +74,9 @@ public class EmpresaActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_activities_encuesta);
+        idEmpresa = getIntent().getExtras().getString("idEmpresa");
+        idUsuario = getIntent().getExtras().getString("idUsuario");
+
         daoEncuesta = new DAOEncuesta(this);
         tituloEncuesta = daoEncuesta.getEncuesta().getTitulo();
         numeroPaginasTotal = daoEncuesta.getNroPaginas(TipoActividad.ACTIVIDAD_EMPRESA);
@@ -155,19 +158,19 @@ public class EmpresaActivity extends AppCompatActivity {
                     case TipoComponente.EDITTEXT:
                         PEditText pEditText = daoEncuesta.getPEditText(preguntas.get(i).get_id());
                         ArrayList<SPEdittext> spEditTexts = daoEncuesta.getSPEditTexts(preguntas.get(i).get_id());
-                        EditTextFragment editTextFragment = new EditTextFragment(pEditText, spEditTexts, EmpresaActivity.this, encuestado);
+                        EditTextFragment editTextFragment = new EditTextFragment(pEditText, spEditTexts, EmpresaActivity.this, idEmpresa);
                         fragmentComponente = editTextFragment;
                         break;
                     case TipoComponente.CHECKBOX:
                         PCheckbox pCheckbox = daoEncuesta.getPCheckbox(preguntas.get(i).get_id());
                         ArrayList<SPCheckbox> spCheckBoxes = daoEncuesta.getSPCheckBoxs(preguntas.get(i).get_id());
-                        CheckBoxFragment checkBoxFragment = new CheckBoxFragment(pCheckbox, spCheckBoxes, EmpresaActivity.this, encuestado);
+                        CheckBoxFragment checkBoxFragment = new CheckBoxFragment(pCheckbox, spCheckBoxes, EmpresaActivity.this, idEmpresa);
                         fragmentComponente = checkBoxFragment;
                         break;
                     case TipoComponente.RADIO:
                         PRadio pRadio = daoEncuesta.getPRadio(preguntas.get(i).get_id());
                         ArrayList<SPRadio> spRadios = daoEncuesta.getSPRadios(preguntas.get(i).get_id());
-                        RadioFragment radioFragment = new RadioFragment(pRadio, spRadios, EmpresaActivity.this, encuestado);
+                        RadioFragment radioFragment = new RadioFragment(pRadio, spRadios, EmpresaActivity.this, idEmpresa);
                         fragmentComponente = radioFragment;
                         break;
                 }
@@ -193,8 +196,8 @@ public class EmpresaActivity extends AppCompatActivity {
         TextView txtHeaderEncuestado = (TextView) headerView.findViewById(R.id.header_txtEncuestado);
         TextView txtHeaderUsuario = (TextView) headerView.findViewById(R.id.header_txtUsuario);
         txtHeaderTitulo.setText(tituloEncuesta);
-        txtHeaderEncuestado.setText("Empresa " + encuestado);
-        txtHeaderUsuario.setText("Usuario: " + usuario);
+        txtHeaderEncuestado.setText("Empresa " + idEmpresa);
+        txtHeaderUsuario.setText("Usuario: " + idUsuario);
     }
 
     private void conectarVistas() {
