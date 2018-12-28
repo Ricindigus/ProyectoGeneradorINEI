@@ -57,7 +57,7 @@ public class EmpresaActivity extends AppCompatActivity {
     String tituloEncuesta;
     String idUsuario;
     String idEmpresa;
-    ArrayList<Modulo> modulos;
+//    ArrayList<Modulo> modulos;
 
     LinearLayout layoutScrolleable, lytComponente1,
             lytComponente2, lytComponente3, lytComponente4,

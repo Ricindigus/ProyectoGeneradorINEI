@@ -4,8 +4,8 @@ public class TipoActividad {
     public static final String ACTIVIDAD_VIVIENDA = "21";
     public static final String ACTIVIDAD_HOGAR = "22";
     public static final String ACTIVIDAD_ENCUESTA = "23";
-    public static final String ACTIVIDAD_CARATULA = "11";
-    public static final String ACTIVIDAD_EMPRESA = "12";
+
+    public static final String ACTIVIDAD_EMPRESA = "11";
 
 
 }
