@@ -26,13 +26,20 @@ import pe.gob.inei.generadorinei.R;
 import pe.gob.inei.generadorinei.adapters.ExpandListAdapter;
 import pe.gob.inei.generadorinei.fragments.CheckBoxFragment;
 import pe.gob.inei.generadorinei.fragments.EditTextFragment;
+import pe.gob.inei.generadorinei.fragments.FormularioFragment;
+import pe.gob.inei.generadorinei.fragments.GPSFragment;
 import pe.gob.inei.generadorinei.fragments.RadioFragment;
+import pe.gob.inei.generadorinei.fragments.UbicacionFragment;
 import pe.gob.inei.generadorinei.model.dao.DAOEncuesta;
 import pe.gob.inei.generadorinei.model.pojos.componentes.PCheckbox;
 import pe.gob.inei.generadorinei.model.pojos.componentes.PEditText;
+import pe.gob.inei.generadorinei.model.pojos.componentes.PFormulario;
+import pe.gob.inei.generadorinei.model.pojos.componentes.PGps;
 import pe.gob.inei.generadorinei.model.pojos.componentes.PRadio;
+import pe.gob.inei.generadorinei.model.pojos.componentes.PUbicacion;
 import pe.gob.inei.generadorinei.model.pojos.componentes.SPCheckbox;
 import pe.gob.inei.generadorinei.model.pojos.componentes.SPEdittext;
+import pe.gob.inei.generadorinei.model.pojos.componentes.SPFormulario;
 import pe.gob.inei.generadorinei.model.pojos.componentes.SPRadio;
 import pe.gob.inei.generadorinei.model.pojos.encuesta.Modulo;
 import pe.gob.inei.generadorinei.model.pojos.encuesta.Pagina;
@@ -156,6 +163,22 @@ public class EmpresaActivity extends AppCompatActivity {
             if (i<preguntas.size()) {
                 int tipo = Integer.parseInt(preguntas.get(i).getTipo_pregunta());
                 switch (tipo) {
+                    case TipoComponente.UBICACION:
+                        PUbicacion ubicacion = daoEncuesta.getUbicacion(preguntas.get(i).get_id());
+                        UbicacionFragment ubicacionFragment = new UbicacionFragment(EmpresaActivity.this, idEmpresa, ubicacion);
+                        fragmentComponente = ubicacionFragment;
+                        break;
+                    case TipoComponente.GPS:
+                        PGps gps = daoEncuesta.getGPS(preguntas.get(i).get_id());
+                        GPSFragment gpsFragment = new GPSFragment(EmpresaActivity.this, idEmpresa, gps);
+                        fragmentComponente = gpsFragment;
+                        break;
+                    case TipoComponente.FORMULARIO:
+                        PFormulario formulario = daoEncuesta.getFormulario(preguntas.get(i).get_id());
+                        ArrayList<SPFormulario> formularios = daoEncuesta.getSPFormularios(preguntas.get(i).get_id());
+                        FormularioFragment formularioFragment = new FormularioFragment(formulario, formularios, EmpresaActivity.this, idEmpresa);
+                        fragmentComponente = formularioFragment;
+                        break;
                     case TipoComponente.EDITTEXT:
                         PEditText pEditText = daoEncuesta.getPEditText(preguntas.get(i).get_id());
                         ArrayList<SPEdittext> spEditTexts = daoEncuesta.getSPEditTexts(preguntas.get(i).get_id());

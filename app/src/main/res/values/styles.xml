@@ -56,6 +56,13 @@
         <item name="colorControlActivated">@color/greyBluePrimaryDark</item>
     </style>
 
+    <style name="RaisedButtonVisitaAgregar" parent="Theme.AppCompat.Light">
+        <item name="colorButtonNormal">@color/greyBluePrimaryDark</item>
+        <item name="colorControlHighlight">@color/greyBluePrimaryDark</item>
+        <item name="android:textSize">@dimen/texto_medium</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
 
 
 </resources>

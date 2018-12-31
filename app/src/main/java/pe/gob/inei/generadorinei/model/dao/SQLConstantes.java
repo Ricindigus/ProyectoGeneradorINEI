@@ -127,6 +127,17 @@ public class SQLConstantes {
     public static final String filtros_marco_nombre3 = "nombre3";
     public static final String filtros_marco_nombre4 = "nombre4";
 
+    public static final String tablaubigeo = "ubigeo";
+
+    public static final String ubigeo_id = "_id";
+    public static final String ubigeo_cod_departamento = "cod_departamento";
+    public static final String ubigeo_nom_departamento = "nom_departamento";
+    public static final String ubigeo_cod_provincia = "cod_provincia";
+    public static final String ubigeo_nom_provincia = "nom_provincia";
+    public static final String ubigeo_cod_distrito = "cod_distrito";
+    public static final String ubigeo_nom_distrito = "nom_distrito";
+
+
 
 
 
@@ -297,8 +308,16 @@ public class SQLConstantes {
     public static final String sp_formulario_long_esp_spinner = "long_esp_spinner";
     public static final String sp_formulario_hab_esp_spinner = "hab_esp_spinner";
     public static final String sp_formulario_var_check_no = "var_check_no";
-
     /**Fin Campos**/
+
+    public static final String tablaspinnerformulario = "spinner_formulario";
+
+    public static final String spinner_formulario_id = "_id";
+    public static final String spinner_formulario_id_variable = "id_variable";
+    public static final String spinner_formulario_numero_dato = "numero_dato";
+    public static final String spinner_formulario_dato = "dato";
+
+
     public static final String tablaspradio = "c_sp_radio";
     /**InicioCampos**/
     public static final String sp_radio_id = "_id";
@@ -377,6 +396,7 @@ public class SQLConstantes {
     public static final String clausula_where_modulo_pagina = "modulo=?";
     public static final String clausula_where_pagina_pregunta = "pagina=?";
     public static final String clausula_where_id_pregunta = "id_pregunta=?";
+    public static final String clausula_where_id_variable = "id_variable=?";
 
 
 

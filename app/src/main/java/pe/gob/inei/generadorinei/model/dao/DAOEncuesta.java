@@ -16,9 +16,13 @@ import java.util.ArrayList;
 
 import pe.gob.inei.generadorinei.model.pojos.componentes.PCheckbox;
 import pe.gob.inei.generadorinei.model.pojos.componentes.PEditText;
+import pe.gob.inei.generadorinei.model.pojos.componentes.PFormulario;
+import pe.gob.inei.generadorinei.model.pojos.componentes.PGps;
 import pe.gob.inei.generadorinei.model.pojos.componentes.PRadio;
+import pe.gob.inei.generadorinei.model.pojos.componentes.PUbicacion;
 import pe.gob.inei.generadorinei.model.pojos.componentes.SPCheckbox;
 import pe.gob.inei.generadorinei.model.pojos.componentes.SPEdittext;
+import pe.gob.inei.generadorinei.model.pojos.componentes.SPFormulario;
 import pe.gob.inei.generadorinei.model.pojos.componentes.SPRadio;
 import pe.gob.inei.generadorinei.model.pojos.encuesta.CamposMarco;
 import pe.gob.inei.generadorinei.model.pojos.encuesta.Encuesta;
@@ -924,5 +928,196 @@ public class DAOEncuesta {
         }
         close();
         return spRadios;
+    }
+
+    public PFormulario getFormulario(String idPregunta){
+        open();
+        PFormulario pFormulario = new PFormulario();
+        String[] whereArgs = new String[]{idPregunta};
+        Cursor cursor = null;
+        try{
+            cursor = sqLiteDatabase.query(SQLConstantes.tablaformulario,
+                    null, SQLConstantes.clausula_where_id,whereArgs,null,null,null);
+            if(cursor.getCount() == 1){
+                cursor.moveToFirst();
+                pFormulario.set_id(cursor.getString(cursor.getColumnIndex(SQLConstantes.formulario_id)));
+                pFormulario.setId_modulo(cursor.getString(cursor.getColumnIndex(SQLConstantes.formulario_id_modulo)));
+                pFormulario.setId_numero(cursor.getString(cursor.getColumnIndex(SQLConstantes.formulario_id_numero)));
+                pFormulario.setTitulo(cursor.getString(cursor.getColumnIndex(SQLConstantes.formulario_titulo)));
+                pFormulario.setId_tabla(cursor.getString(cursor.getColumnIndex(SQLConstantes.formulario_id_tabla)));
+            }
+        }finally{
+            if(cursor != null) cursor.close();
+        }
+        close();
+        return pFormulario;
+    }
+
+    public ArrayList<SPFormulario> getSPFormularios(String idPregunta) {
+        open();
+        ArrayList<SPFormulario> spFormularios = new ArrayList<SPFormulario>();
+        String[] whereArgs = new String[]{idPregunta};
+        Cursor cursor = null;
+        try{
+            cursor = sqLiteDatabase.query(SQLConstantes.tablaspformulario,
+                    null, SQLConstantes.clausula_where_id_pregunta, whereArgs, null, null, null);
+            while(cursor.moveToNext()){
+                SPFormulario spFormulario = new SPFormulario();
+                spFormulario.set_id(cursor.getString(cursor.getColumnIndex(SQLConstantes.sp_formulario_id)));
+                spFormulario.setId_pregunta(cursor.getString(cursor.getColumnIndex(SQLConstantes.sp_formulario_id_pregunta)));
+                spFormulario.setSubpregunta(cursor.getString(cursor.getColumnIndex(SQLConstantes.sp_formulario_subpregunta)));
+                spFormulario.setVar_edittext(cursor.getString(cursor.getColumnIndex(SQLConstantes.sp_formulario_var_edittext)));
+                spFormulario.setLong_edittext(cursor.getString(cursor.getColumnIndex(SQLConstantes.sp_formulario_long_edittext)));
+                spFormulario.setTipo_edittext(cursor.getString(cursor.getColumnIndex(SQLConstantes.sp_formulario_tipo_edittext)));
+                spFormulario.setVar_spinner(cursor.getString(cursor.getColumnIndex(SQLConstantes.sp_formulario_var_spinner)));
+                spFormulario.setVar_esp_spinner(cursor.getString(cursor.getColumnIndex(SQLConstantes.sp_formulario_var_esp_spinner)));
+                spFormulario.setTipo_esp_spinner(cursor.getString(cursor.getColumnIndex(SQLConstantes.sp_formulario_tipo_esp_spinner)));
+                spFormulario.setLong_esp_spinner(cursor.getString(cursor.getColumnIndex(SQLConstantes.sp_formulario_long_esp_spinner)));
+                spFormulario.setHab_esp_spinner(cursor.getString(cursor.getColumnIndex(SQLConstantes.sp_formulario_hab_esp_spinner)));
+                spFormulario.setVar_check_no(cursor.getString(cursor.getColumnIndex(SQLConstantes.sp_formulario_var_check_no)));
+                spFormularios.add(spFormulario);
+            }
+        }finally {
+            if(cursor != null) cursor.close();
+        }
+        close();
+        return spFormularios;
+    }
+
+    public ArrayList<String> getOpcionesSpinnerFormulario(String idVarSpinner) {
+        open();
+        ArrayList<String> opcionSpinners = new ArrayList<String>();
+        opcionSpinners.add("SELECCIONE...");
+        String[] whereArgs = new String[]{idVarSpinner};
+        Cursor cursor = null;
+        try{
+            cursor = sqLiteDatabase.query(SQLConstantes.tablaspinnerformulario,
+                    null, SQLConstantes.clausula_where_id_variable, whereArgs, null, null, null);
+            while(cursor.moveToNext()){
+                String opcionSpinner = "";
+                opcionSpinner = opcionSpinner + cursor.getString(cursor.getColumnIndex(SQLConstantes.spinner_formulario_numero_dato)) + "."
+                        + cursor.getString(cursor.getColumnIndex(SQLConstantes.spinner_formulario_dato));
+                opcionSpinners.add(opcionSpinner);
+            }
+        }finally {
+            if(cursor != null) cursor.close();
+        }
+        close();
+        return opcionSpinners;
+    }
+
+    public PGps getGPS(String idGPS){
+        open();
+        PGps pGps = new PGps();
+        String[] whereArgs = new String[]{idGPS};
+        Cursor cursor = null;
+        try{
+            cursor = sqLiteDatabase.query(SQLConstantes.tablagps,
+                    null, SQLConstantes.clausula_where_id,whereArgs,null,null,null);
+            if(cursor.getCount() == 1){
+                cursor.moveToFirst();
+                pGps.set_id(cursor.getString(cursor.getColumnIndex(SQLConstantes.gps_id)));
+                pGps.setNumero(cursor.getString(cursor.getColumnIndex(SQLConstantes.gps_numero)));
+                pGps.setModulo(cursor.getString(cursor.getColumnIndex(SQLConstantes.gps_modulo)));
+                pGps.setVar_alt(cursor.getString(cursor.getColumnIndex(SQLConstantes.gps_var_alt)));
+                pGps.setVar_lat(cursor.getString(cursor.getColumnIndex(SQLConstantes.gps_var_lat)));
+                pGps.setVar_long(cursor.getString(cursor.getColumnIndex(SQLConstantes.gps_var_long)));
+                pGps.setId_tabla(cursor.getString(cursor.getColumnIndex(SQLConstantes.gps_id_tabla)));
+            }
+        }finally{
+            if(cursor != null) cursor.close();
+        }
+        close();
+        return pGps;
+    }
+
+    public ArrayList<String> getArrayDepartamentos(){
+        open();
+        ArrayList<String> arrayFiltro1 = new ArrayList<>();
+        arrayFiltro1.add("Seleccionar Departamento");
+        String[] columns = {SQLConstantes.ubigeo_nom_departamento};
+        Cursor cursor = null;
+        try{
+            cursor = sqLiteDatabase.query(true, SQLConstantes.tablaubigeo,
+                    columns,null,null,null,null,
+                    SQLConstantes.ubigeo_nom_departamento,null);
+            while (cursor.moveToNext()){
+                String elemento = cursor.getString(cursor.getColumnIndex(SQLConstantes.ubigeo_nom_departamento));
+                arrayFiltro1.add(elemento);
+            }
+        }finally{
+            if(cursor != null) cursor.close();
+        }
+        close();
+        return arrayFiltro1;
+    }
+
+    public ArrayList<String> getArrayProvincias(String nomDepartamento){
+        open();
+        ArrayList<String> arrayFiltro2 = new ArrayList<>();
+        arrayFiltro2.add("Seleccionar Provincia");
+        String[] whereArgs = new String[]{nomDepartamento};
+        String[] columns = {SQLConstantes.ubigeo_nom_provincia};
+        Cursor cursor = null;
+        try{
+            cursor = sqLiteDatabase.query(true, SQLConstantes.tablaubigeo,
+                    columns,SQLConstantes.ubigeo_nom_departamento+"=?",whereArgs,
+                    null,null,SQLConstantes.ubigeo_nom_provincia,null);
+            while (cursor.moveToNext()){
+                String elemento = cursor.getString(cursor.getColumnIndex(SQLConstantes.ubigeo_nom_provincia));
+                arrayFiltro2.add(elemento);
+            }
+        }finally{
+            if(cursor != null) cursor.close();
+        }
+        close();
+        return arrayFiltro2;
+    }
+
+    public ArrayList<String> getArrayDistritos(String nomDepartamento,String nomProvincia){
+        open();
+        ArrayList<String> arrayFiltro3 = new ArrayList<>();
+        arrayFiltro3.add("Seleccionar Distrito");
+        String[] whereArgs = new String[]{nomDepartamento,nomProvincia};
+        String[] columns = {SQLConstantes.ubigeo_nom_distrito};
+        Cursor cursor = null;
+        try{
+            cursor = sqLiteDatabase.query(true, SQLConstantes.tablaubigeo, columns,
+                    SQLConstantes.ubigeo_nom_departamento+"=?" + " AND "
+                            + SQLConstantes.ubigeo_nom_provincia+"=?",whereArgs,
+                    null,null,SQLConstantes.ubigeo_nom_distrito,null);
+            while (cursor.moveToNext()){
+                String elemento = cursor.getString(cursor.getColumnIndex(SQLConstantes.ubigeo_nom_distrito));
+                arrayFiltro3.add(elemento);
+            }
+        }finally{
+            if(cursor != null) cursor.close();
+        }
+        close();
+        return arrayFiltro3;
+    }
+
+    public PUbicacion getUbicacion(String idUbicacion){
+        open();
+        PUbicacion pUbicacion = new PUbicacion();
+        String[] whereArgs = new String[]{idUbicacion};
+        Cursor cursor = null;
+        try{
+            cursor = sqLiteDatabase.query(SQLConstantes.tablaubicacion, null,
+                    SQLConstantes.clausula_where_id,whereArgs,null,null,null);
+            while(cursor.moveToNext()){
+                pUbicacion.set_id(cursor.getString(cursor.getColumnIndex(SQLConstantes.ubicacion_id)));
+                pUbicacion.setNumero(cursor.getString(cursor.getColumnIndex(SQLConstantes.ubicacion_numero)));
+                pUbicacion.setModulo(cursor.getString(cursor.getColumnIndex(SQLConstantes.ubicacion_modulo)));
+                pUbicacion.setVar_dep(cursor.getString(cursor.getColumnIndex(SQLConstantes.ubicacion_var_dep)));
+                pUbicacion.setVar_prov(cursor.getString(cursor.getColumnIndex(SQLConstantes.ubicacion_var_prov)));
+                pUbicacion.setVar_dist(cursor.getString(cursor.getColumnIndex(SQLConstantes.ubicacion_var_dist)));
+                pUbicacion.setId_tabla(cursor.getString(cursor.getColumnIndex(SQLConstantes.ubicacion_id_tabla)));
+            }
+        }finally{
+            if(cursor != null) cursor.close();
+        }
+        close();
+        return pUbicacion;
     }
 }
